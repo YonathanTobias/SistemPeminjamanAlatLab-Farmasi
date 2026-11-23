@@ -29,9 +29,9 @@
         </div>
         <p class="text-muted small mb-3">Klik salah satu tombol di bawah untuk mengisi formulir secara otomatis sesuai program studi yang menggunakan sistem ini:</p>
         <div class="d-flex flex-wrap gap-2">
-            <!-- 1. S1 Farmasi: Kuning -->
-            <button type="button" class="btn btn-sm shadow-xs fw-semibold" style="background: #fefce8; color: #854d0e; border: 1.5px solid #eab308;" onclick="applyPreset('s1_farmasi')">
-                <i class="bi bi-capsule" style="color: #ca8a04;"></i> S1 Farmasi
+            <!-- 1. S1 Farmasi: Kuning (#FFFF00) -->
+            <button type="button" class="btn btn-sm shadow-xs fw-bold" style="background: #FFFF00; color: #1f2937; border: 1.5px solid #e6e600;" onclick="applyPreset('s1_farmasi')">
+                <i class="bi bi-capsule" style="color: #1f2937;"></i> S1 Farmasi
             </button>
 
             <!-- 2. D4 MIK: Ungu -->

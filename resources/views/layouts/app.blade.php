@@ -59,6 +59,10 @@
         .btn-primary {
             background: linear-gradient(135deg, {{ $theme['primary'] }} 0%, {{ $theme['primary_dark'] }} 100%) !important;
             border-color: {{ $theme['primary'] }} !important;
+            color: {{ $theme['btn_text'] ?? '#ffffff' }} !important;
+        }
+        .btn-primary:hover, .btn-primary:focus {
+            color: {{ $theme['btn_text'] ?? '#ffffff' }} !important;
         }
         .btn-outline-primary {
             color: {{ $theme['primary'] }} !important;
@@ -66,7 +70,7 @@
         }
         .btn-outline-primary:hover {
             background-color: {{ $theme['primary'] }} !important;
-            color: #ffffff !important;
+            color: {{ $theme['btn_text'] ?? '#ffffff' }} !important;
         }
         .badge-soft-primary {
             background-color: {{ $theme['badge_soft'] }} !important;

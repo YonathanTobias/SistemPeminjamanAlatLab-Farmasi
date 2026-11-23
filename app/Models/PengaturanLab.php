@@ -52,17 +52,18 @@ class PengaturanLab extends Model
     {
         $prodi = strtolower($this->nama_prodi ?? '');
         
-        // 1. S1 Farmasi -> RADIANT SUNFLOWER YELLOW / GOLD
+        // 1. S1 Farmasi -> PURE YELLOW (#FFFF00)
         if (str_contains($prodi, 'farmasi')) {
             return [
                 'name' => 'yellow',
-                'primary' => '#ca8a04',
-                'primary_dark' => '#a16207',
-                'primary_light' => '#fef9c3',
-                'gradient' => 'linear-gradient(135deg, #422006 0%, #713f12 35%, #a16207 70%, #eab308 100%)',
-                'navbar_bg' => 'rgba(38, 24, 6, 0.96)',
-                'navbar_border' => 'rgba(234, 179, 8, 0.35)',
-                'badge_soft' => 'rgba(234, 179, 8, 0.18)',
+                'primary' => '#FFFF00',
+                'primary_dark' => '#CCCC00',
+                'primary_light' => '#FFFFE0',
+                'btn_text' => '#111827',
+                'gradient' => 'linear-gradient(135deg, #1c1c00 0%, #474700 35%, #7a7a00 65%, #FFFF00 100%)',
+                'navbar_bg' => 'rgba(20, 20, 0, 0.97)',
+                'navbar_border' => 'rgba(255, 255, 0, 0.4)',
+                'badge_soft' => 'rgba(255, 255, 0, 0.25)',
             ];
         }
         
