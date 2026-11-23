@@ -396,22 +396,56 @@
         }
 
         @if(($theme['name'] ?? '') === 'yellow')
-        .hero-banner-prodi {
+        .hero-banner-prodi,
+        .auth-brand-side {
             color: #0f172a !important;
             border: 1px solid rgba(234, 179, 8, 0.45) !important;
+        }
+        .hero-banner-prodi {
             box-shadow: 0 10px 30px -5px rgba(234, 179, 8, 0.25) !important;
         }
         .hero-banner-prodi h1,
         .hero-banner-prodi h2,
         .hero-banner-prodi .h2,
         .hero-banner-prodi .display-6,
-        .hero-banner-prodi .text-white {
+        .hero-banner-prodi .text-white,
+        .auth-brand-side h3,
+        .auth-brand-side h4,
+        .auth-brand-side h5,
+        .auth-brand-side .text-white {
             color: #0f172a !important;
         }
-        .hero-banner-prodi p {
+        .hero-banner-prodi p,
+        .auth-brand-side p,
+        .auth-brand-side span {
             color: #1e293b !important;
         }
+        .auth-brand-side .text-white-50 {
+            color: #334155 !important;
+            font-weight: 600 !important;
+        }
         @endif
+
+        /* Dark mode for login / register card */
+        [data-bs-theme="dark"] .auth-split-card {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+        }
+        [data-bs-theme="dark"] .auth-split-card .col-lg-6:not(.auth-brand-side) {
+            background-color: #0f172a !important;
+        }
+        [data-bs-theme="dark"] .auth-split-card h4 {
+            color: #ffffff !important;
+        }
+        [data-bs-theme="dark"] .auth-split-card .form-control {
+            background-color: #1e293b !important;
+            color: #ffffff !important;
+            border-color: #334155 !important;
+        }
+        [data-bs-theme="dark"] .auth-split-card .input-group-text {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+        }
     </style>
     @stack('styles')
 </head>

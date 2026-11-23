@@ -15,39 +15,39 @@
                                         <img src="{{ asset('images/logo-stikes.png') }}" alt="Logo STIKES" style="max-height: 40px; max-width: 40px; object-fit: contain;">
                                     </div>
                                     <div>
-                                        <h5 class="fw-bold text-white mb-0">STIKES Panti Waluya</h5>
-                                        <small class="text-white-50">Sistem Informasi Laboratorium Farmasi</small>
+                                        <h5 class="fw-bold text-dark mb-0">STIKES Panti Waluya</h5>
+                                        <small class="fw-bold d-block" style="color: #334155;">Sistem Informasi Laboratorium Farmasi</small>
                                     </div>
                                 </div>
 
-                                <h3 class="fw-bold text-white mb-3">Layanan Laboratorium STIKES</h3>
-                                <p class="text-white-50 small mb-4">
+                                <h3 class="fw-bold text-dark mb-3">Layanan Laboratorium STIKES</h3>
+                                <p class="small mb-4 text-dark" style="font-weight: 500;">
                                     Kelola peminjaman alat praktikum, cek ketersediaan stok, dan verifikasi tiket laboratorium dengan cepat.
                                 </p>
 
                                 <div class="d-flex flex-column gap-3 mb-4">
-                                    <div class="d-flex align-items-center gap-3 text-white-50 small">
-                                        <div class="p-2 rounded-circle text-info d-flex align-items-center justify-content-center" style="width: 34px; height: 34px; background: rgba(255, 255, 255, 0.15);">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="p-2 rounded-circle d-flex align-items-center justify-content-center shadow-xs" style="width: 36px; height: 36px; background: #0f172a; color: #facc15;">
                                             <i class="bi bi-qr-code-scan"></i>
                                         </div>
-                                        <span>Verifikasi peminjaman dengan QR Code</span>
+                                        <span class="small fw-bold text-dark">Verifikasi peminjaman dengan QR Code</span>
                                     </div>
-                                    <div class="d-flex align-items-center gap-3 text-white-50 small">
-                                        <div class="p-2 rounded-circle text-success d-flex align-items-center justify-content-center" style="width: 34px; height: 34px; background: rgba(255, 255, 255, 0.15);">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="p-2 rounded-circle d-flex align-items-center justify-content-center shadow-xs" style="width: 36px; height: 36px; background: #0f172a; color: #facc15;">
                                             <i class="bi bi-boxes"></i>
                                         </div>
-                                        <span>Pemantauan ketersediaan alat praktikum</span>
+                                        <span class="small fw-bold text-dark">Pemantauan ketersediaan alat praktikum</span>
                                     </div>
-                                    <div class="d-flex align-items-center gap-3 text-white-50 small">
-                                        <div class="p-2 rounded-circle text-warning d-flex align-items-center justify-content-center" style="width: 34px; height: 34px; background: rgba(255, 255, 255, 0.15);">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="p-2 rounded-circle d-flex align-items-center justify-content-center shadow-xs" style="width: 36px; height: 36px; background: #0f172a; color: #facc15;">
                                             <i class="bi bi-file-earmark-pdf"></i>
                                         </div>
-                                        <span>Unduh laporan berkala format PDF & Excel</span>
+                                        <span class="small fw-bold text-dark">Unduh laporan berkala format PDF & Excel</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="pt-3 border-top border-white border-opacity-10 text-white-50 small">
+                            <div class="pt-3 border-top small fw-semibold" style="border-color: rgba(15, 23, 42, 0.2) !important; color: #334155;">
                                 &copy; {{ date('Y') }} Laboratorium STIKES Panti Waluya Malang
                             </div>
                         </div>
@@ -63,14 +63,14 @@
                                 @csrf
 
                                 <div class="mb-3">
-                                    <label for="email" class="form-label small fw-semibold text-muted">
+                                    <label for="email" class="form-label small fw-bold text-dark">
                                         <i class="bi bi-envelope text-primary"></i> Alamat Email
                                     </label>
                                     <div class="input-group">
-                                        <span class="input-group-text bg-light border-end-0 text-muted">
+                                        <span class="input-group-text bg-light border-end-0 text-primary">
                                             <i class="bi bi-person"></i>
                                         </span>
-                                        <input id="email" type="email" class="form-control border-start-0 ps-0 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        <input id="email" type="email" class="form-control border-start-0 ps-0 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="nama@stikes-pantiwaluya.ac.id">
                                     </div>
                                     @error('email')
                                         <span class="text-danger small mt-1 d-block" role="alert">
@@ -81,21 +81,21 @@
 
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <label for="password" class="form-label small fw-semibold text-muted mb-0">
+                                        <label for="password" class="form-label small fw-bold text-dark mb-0">
                                             <i class="bi bi-key text-primary"></i> Kata Sandi
                                         </label>
                                         @if (Route::has('password.request'))
-                                            <a class="text-decoration-none small text-muted" href="{{ route('password.request') }}">
+                                            <a class="text-decoration-none small fw-semibold text-primary" href="{{ route('password.request') }}">
                                                 Lupa Sandi?
                                             </a>
                                         @endif
                                     </div>
                                     <div class="input-group mt-1">
-                                        <span class="input-group-text bg-light border-end-0 text-muted">
+                                        <span class="input-group-text bg-light border-end-0 text-primary">
                                             <i class="bi bi-lock"></i>
                                         </span>
-                                        <input id="password" type="password" class="form-control border-start-0 border-end-0 ps-0 @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                                        <button class="btn btn-light bg-white border border-start-0 text-muted" type="button" onclick="togglePasswordVisibility('password', this)" title="Lihat Sandi">
+                                        <input id="password" type="password" class="form-control border-start-0 border-end-0 ps-0 @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="••••••••">
+                                        <button class="btn btn-light bg-white border border-start-0 text-secondary" type="button" onclick="togglePasswordVisibility('password', this)" title="Lihat Sandi">
                                             <i class="bi bi-eye"></i>
                                         </button>
                                     </div>
@@ -109,7 +109,7 @@
                                 <div class="mb-4 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                        <label class="form-check-label small text-muted" for="remember">
+                                        <label class="form-check-label small fw-semibold text-dark" for="remember">
                                             Ingat saya
                                         </label>
                                     </div>
@@ -124,7 +124,7 @@
                             </form>
 
                             <div class="text-center mt-2">
-                                <a href="{{ url('/') }}" class="text-decoration-none small text-muted">
+                                <a href="{{ url('/') }}" class="text-decoration-none small fw-semibold text-secondary">
                                     <i class="bi bi-arrow-left"></i> Kembali ke Katalog Publik
                                 </a>
                             </div>
