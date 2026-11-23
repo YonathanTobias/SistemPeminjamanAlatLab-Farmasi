@@ -317,15 +317,22 @@
     </div>
 </div>
 
-<!-- FLOATING CART BUTTON (ALAT) -->
-<button type="button" id="floatingCartBtn" class="floating-cart-btn btn btn-primary shadow-lg rounded-pill px-4 py-3 d-flex align-items-center gap-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart" style="{{ ($activeTab === 'ruangan') ? 'display: none !important;' : '' }}">
-    <div class="position-relative">
-        <i class="bi bi-cart3 fs-5"></i>
-        <span id="cartBadgeCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-light">
+<!-- FLOATING CART BUTTON CIRCLE (POJOK KANAN BAWAH) -->
+<button type="button" 
+        id="floatingCartBtn" 
+        class="floating-cart-btn btn btn-primary shadow-lg d-flex align-items-center justify-content-center" 
+        data-bs-toggle="offcanvas" 
+        data-bs-target="#offcanvasCart" 
+        aria-controls="offcanvasCart" 
+        title="Buka Keranjang Peminjaman Alat"
+        aria-label="Keranjang Peminjaman Alat"
+        style="{{ ($activeTab === 'ruangan') ? 'display: none !important;' : '' }}">
+    <div class="position-relative d-flex align-items-center justify-content-center">
+        <i class="bi bi-cart3 fs-3 text-dark"></i>
+        <span id="cartBadgeCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-2 border-white shadow-sm" style="font-size: 0.72rem; min-width: 22px; height: 22px; padding: 2px 6px;">
             0
         </span>
     </div>
-    <span class="fw-bold d-none d-sm-inline" id="cartBtnLabel">Keranjang Praktikum</span>
 </button>
 
 <!-- OFFCANVAS DRAWER KERANJANG ALAT -->

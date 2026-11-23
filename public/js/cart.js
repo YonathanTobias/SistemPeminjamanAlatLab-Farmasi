@@ -166,6 +166,9 @@ function updateCartUI() {
     // 1. Update Floating Button & Counter Badge
     if (badge) {
         badge.innerText = totalItems;
+        badge.classList.remove('badge-pop');
+        void badge.offsetWidth;
+        badge.classList.add('badge-pop');
     }
     if (btnLabel) {
         btnLabel.innerText = totalItems > 0 ? `Keranjang Praktikum (${totalItems} Unit)` : 'Keranjang Praktikum';

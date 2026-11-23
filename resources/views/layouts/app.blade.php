@@ -214,6 +214,47 @@
             opacity: 1 !important;
         }
 
+        /* ========================================================
+           FLOATING CIRCULAR CART BUTTON (POJOK KANAN BAWAH)
+           ======================================================== */
+        .floating-cart-btn {
+            position: fixed !important;
+            bottom: 28px !important;
+            right: 28px !important;
+            width: 62px !important;
+            height: 62px !important;
+            border-radius: 50% !important;
+            z-index: 1045 !important;
+            box-shadow: 0 10px 25px -5px rgba(234, 179, 8, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.15) !important;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            border: 2px solid rgba(255, 255, 255, 0.7) !important;
+            padding: 0 !important;
+            cursor: pointer;
+        }
+        .floating-cart-btn:hover {
+            transform: scale(1.1) translateY(-4px) !important;
+            box-shadow: 0 16px 32px -4px rgba(234, 179, 8, 0.65), 0 12px 14px -5px rgba(0, 0, 0, 0.2) !important;
+        }
+        .floating-cart-btn:active {
+            transform: scale(0.95) !important;
+        }
+        .floating-cart-btn .badge-pop {
+            animation: badgePop 0.3s ease;
+        }
+        @keyframes badgePop {
+            0% { transform: translate(50%, -50%) scale(1); }
+            50% { transform: translate(50%, -50%) scale(1.35); }
+            100% { transform: translate(50%, -50%) scale(1); }
+        }
+        @media (max-width: 575.98px) {
+            .floating-cart-btn {
+                bottom: 20px !important;
+                right: 20px !important;
+                width: 54px !important;
+                height: 54px !important;
+            }
+        }
+
         /* Subtle badges with high contrast */
         .kategori-badge {
             background-color: #f1f5f9;
@@ -393,6 +434,13 @@
         }
         [data-bs-theme="dark"] .modal-title {
             color: #ffffff !important;
+        }
+        [data-bs-theme="dark"] .floating-cart-btn {
+            box-shadow: 0 10px 25px -5px rgba(250, 204, 21, 0.35), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important;
+            border: 2px solid rgba(255, 255, 255, 0.2) !important;
+        }
+        [data-bs-theme="dark"] .floating-cart-btn:hover {
+            box-shadow: 0 16px 32px -4px rgba(250, 204, 21, 0.5), 0 12px 14px -5px rgba(0, 0, 0, 0.6) !important;
         }
 
         @if(($theme['name'] ?? '') === 'yellow')
