@@ -138,7 +138,7 @@
             <div class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch alat-grid-item" 
                  data-nama="{{ $alat->nama_alat }}" 
                  data-kode="{{ $alat->kode_alat }}" 
-                 data-kategori="{{ $alat->kategori ?? 'KDM & Tanda Vital' }}">
+                 data-kategori="{{ $alat->kategori ?? 'Teknologi & Formulasi Sediaan' }}">
                 <div class="card w-100 border-0 rounded-4 shadow-sm hover-shadow card-hover transition d-flex flex-column overflow-hidden">
                     <!-- Thumbnail Gambar / Icon Placeholder -->
                     <div class="position-relative card-alat-img bg-light border-bottom d-flex align-items-center justify-content-center" style="height: 170px;">
@@ -146,16 +146,20 @@
                             <img src="{{ asset($alat->gambar) }}" alt="{{ $alat->nama_alat }}" class="w-100 h-100" style="object-fit: cover;">
                         @else
                             <div class="text-center text-primary opacity-75">
-                                @if(str_contains($alat->kode_alat, 'KDM'))
+                                @if(str_contains($alat->kode_alat, 'TEK'))
+                                    <i class="bi bi-capsule-pill display-4"></i>
+                                @elseif(str_contains($alat->kode_alat, 'KIM'))
+                                    <i class="bi bi-droplet-half display-4"></i>
+                                @elseif(str_contains($alat->kode_alat, 'FTO'))
+                                    <i class="bi bi-flower1 display-4"></i>
+                                @elseif(str_contains($alat->kode_alat, 'TOX'))
                                     <i class="bi bi-heart-pulse display-4"></i>
-                                @elseif(str_contains($alat->kode_alat, 'SIM'))
-                                    <i class="bi bi-person-standing display-4"></i>
-                                @elseif(str_contains($alat->kode_alat, 'ELK'))
-                                    <i class="bi bi-lightning-charge display-4"></i>
-                                @elseif(str_contains($alat->kode_alat, 'BED'))
-                                    <i class="bi bi-scissors display-4"></i>
+                                @elseif(str_contains($alat->kode_alat, 'MIC'))
+                                    <i class="bi bi-virus display-4"></i>
+                                @elseif(str_contains($alat->kode_alat, 'GLS'))
+                                    <i class="bi bi-eyedropper display-4"></i>
                                 @else
-                                    <i class="bi bi-box-seam display-4"></i>
+                                    <i class="bi bi-prescription2 display-4"></i>
                                 @endif
                             </div>
                         @endif
@@ -182,7 +186,7 @@
                         <div class="mb-3">
                             <div class="d-flex align-items-center justify-content-between mb-2">
                                 <span class="badge bg-light text-secondary border rounded-pill small" style="font-size: 0.72rem;">
-                                    <i class="bi bi-bookmark-fill text-primary"></i> {{ $alat->kategori ?? 'KDM & Tanda Vital' }}
+                                    <i class="bi bi-bookmark-fill text-primary"></i> {{ $alat->kategori ?? 'Teknologi & Formulasi Sediaan' }}
                                 </span>
                                 <!-- Smart Stock Tier Badge -->
                                 @if($alat->stok_tersedia > 5)
