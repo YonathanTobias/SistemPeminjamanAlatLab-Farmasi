@@ -69,19 +69,24 @@ class LabController extends Controller
         $peminjamanRuangans = collect();
 
         if ($search) {
-            $keyword = trim($search);
+            $keyword = trim(strip_tags($search));
+            // Sanitasi dari karakter berbahaya dan escape wildcards SQL LIKE (% dan _)
+            $cleanKeyword = preg_replace('/[^\w\s\-\.\/]/', '', $keyword);
+            $likeKeyword = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $cleanKeyword);
 
-            $peminjamans = PeminjamanLab::with('details.alat')
-                ->where('kode_transaksi', 'like', '%' . $keyword . '%')
-                ->orWhere('nim_nip', 'like', '%' . $keyword . '%')
-                ->latest()
-                ->get();
+            if (!empty($likeKeyword)) {
+                $peminjamans = PeminjamanLab::with('details.alat')
+                    ->where('kode_transaksi', 'like', '%' . $likeKeyword . '%')
+                    ->orWhere('nim_nip', 'like', '%' . $likeKeyword . '%')
+                    ->latest()
+                    ->get();
 
-            $peminjamanRuangans = PeminjamanRuangan::with('ruangan')
-                ->where('kode_transaksi', 'like', '%' . $keyword . '%')
-                ->orWhere('nim_nip', 'like', '%' . $keyword . '%')
-                ->latest()
-                ->get();
+                $peminjamanRuangans = PeminjamanRuangan::with('ruangan')
+                    ->where('kode_transaksi', 'like', '%' . $likeKeyword . '%')
+                    ->orWhere('nim_nip', 'like', '%' . $likeKeyword . '%')
+                    ->latest()
+                    ->get();
+            }
         }
 
         return view('lab.lacak', compact('peminjamans', 'peminjamanRuangans', 'search', 'tab'));
@@ -91,8 +96,8 @@ class LabController extends Controller
     public function storePeminjamanPublik(Request $request)
     {
         $request->validate([
-            'nama_peminjam'       => 'required|string|max:255',
-            'nim_nip'             => 'required|string|max:50',
+            'nama_peminjam'       => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s\.\,\'\-]+$/'],
+            'nim_nip'             => ['required', 'string', 'max:50', 'regex:/^[a-zA-Z0-9\.\-\/]+$/'],
             'prodi'               => 'required|string|max:100',
             'keperluan'           => 'nullable|string|max:255',
             'tgl_pinjam'          => 'required|date',
@@ -102,6 +107,9 @@ class LabController extends Controller
             'items.*.jumlah'      => 'required_with:items|integer|min:1',
             'alat_lab_id'         => 'nullable|exists:alat_labs,id',
             'jumlah_pinjam'       => 'nullable|integer|min:1',
+        ], [
+            'nama_peminjam.regex' => 'Nama peminjam hanya boleh berisi huruf, spasi, titik, koma, tanda petik, dan strip.',
+            'nim_nip.regex'       => 'Format NIM / NIP hanya boleh berupa huruf, angka, titik, garis miring, atau strip tanpa karakter aneh.',
         ]);
 
         return DB::transaction(function () use ($request) {
@@ -129,19 +137,25 @@ class LabController extends Controller
                 }
             }
 
-            // 2. Generate kode transaksi unik sesuai Prodi: KEP-YYYYMMDD-XXX / FAR-YYYYMMDD-XXX / MIK-YYYYMMDD-XXX
+            // 2. Generate kode transaksi unik sesuai Prodi
             $pengaturan = PengaturanLab::getPengaturan();
-            $prefix = $pengaturan->prodi_prefix ?? 'LAB';
+            $prefix = $pengaturan->prodi_prefix ?? 'FAR';
             $countToday = PeminjamanLab::whereDate('created_at', Carbon::today())->count() + 1;
             $kodeTransaksi = $prefix . '-' . date('Ymd') . '-' . str_pad($countToday, 3, '0', STR_PAD_LEFT);
+
+            // Sanitasi input teks dari tag HTML dan karakter injeksi
+            $cleanNama = strip_tags(trim($request->nama_peminjam));
+            $cleanNim  = strip_tags(trim($request->nim_nip));
+            $cleanProdi = strip_tags(trim($request->prodi));
+            $cleanKeperluan = strip_tags(trim($request->keperluan ?? 'Praktikum Laboratorium Farmasi'));
 
             // 3. Buat header peminjaman
             $peminjaman = PeminjamanLab::create([
                 'kode_transaksi'      => $kodeTransaksi,
-                'nama_peminjam'       => $request->nama_peminjam,
-                'nim_nip'             => $request->nim_nip,
-                'prodi'               => $request->prodi,
-                'keperluan'           => $request->keperluan ?? 'Praktikum Laboratorium Farmasi',
+                'nama_peminjam'       => $cleanNama,
+                'nim_nip'             => $cleanNim,
+                'prodi'               => $cleanProdi,
+                'keperluan'           => $cleanKeperluan,
                 'tgl_pinjam'          => $request->tgl_pinjam,
                 'tgl_kembali_rencana' => $request->tgl_kembali_rencana,
                 'status'              => 'Menunggu',

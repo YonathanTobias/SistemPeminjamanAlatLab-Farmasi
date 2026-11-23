@@ -23,16 +23,26 @@ class RuanganController extends Controller
     public function storeBookingPublik(Request $request)
     {
         $request->validate([
-            'ruangan_id' => 'required|exists:ruangans,id',
-            'nama_peminjam' => 'required|string|max:255',
-            'nim_nip' => 'required|string|max:50',
-            'prodi' => 'required|string|max:100',
-            'keperluan' => 'required|string|max:255',
-            'tgl_pinjam' => 'required|date|after_or_equal:today',
-            'jam_mulai' => 'required',
-            'jam_selesai' => 'required|after:jam_mulai',
-            'catatan' => 'nullable|string',
+            'ruangan_id'    => 'required|exists:ruangans,id',
+            'nama_peminjam' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s\.\,\'\-]+$/'],
+            'nim_nip'       => ['required', 'string', 'max:50', 'regex:/^[a-zA-Z0-9\.\-\/]+$/'],
+            'prodi'         => 'required|string|max:100',
+            'keperluan'     => 'required|string|max:255',
+            'tgl_pinjam'    => 'required|date|after_or_equal:today',
+            'jam_mulai'     => 'required',
+            'jam_selesai'   => 'required|after:jam_mulai',
+            'catatan'       => 'nullable|string|max:500',
+        ], [
+            'nama_peminjam.regex' => 'Nama peminjam hanya boleh berisi huruf, spasi, titik, koma, tanda petik, dan strip.',
+            'nim_nip.regex'       => 'Format NIM / NIP hanya boleh berupa huruf, angka, titik, garis miring, atau strip tanpa karakter aneh.',
         ]);
+
+        // Sanitasi teks dari tag HTML dan karakter berbahaya
+        $cleanNama = strip_tags(trim($request->nama_peminjam));
+        $cleanNim  = strip_tags(trim($request->nim_nip));
+        $cleanProdi = strip_tags(trim($request->prodi));
+        $cleanKeperluan = strip_tags(trim($request->keperluan));
+        $cleanCatatan = $request->catatan ? strip_tags(trim($request->catatan)) : null;
 
         // Cek bentrok jadwal ruangan yang sudah Disetujui atau masih Menunggu
         $bentrok = PeminjamanRuangan::where('ruangan_id', $request->ruangan_id)
@@ -56,16 +66,16 @@ class RuanganController extends Controller
 
         PeminjamanRuangan::create([
             'kode_transaksi' => $kodeTransaksi,
-            'ruangan_id' => $request->ruangan_id,
-            'nama_peminjam' => $request->nama_peminjam,
-            'nim_nip' => $request->nim_nip,
-            'prodi' => $request->prodi,
-            'keperluan' => $request->keperluan,
-            'tgl_pinjam' => $request->tgl_pinjam,
-            'jam_mulai' => $request->jam_mulai,
-            'jam_selesai' => $request->jam_selesai,
-            'status' => 'Menunggu',
-            'catatan' => $request->catatan,
+            'ruangan_id'     => $request->ruangan_id,
+            'nama_peminjam'  => $cleanNama,
+            'nim_nip'        => $cleanNim,
+            'prodi'          => $cleanProdi,
+            'keperluan'      => $cleanKeperluan,
+            'tgl_pinjam'     => $request->tgl_pinjam,
+            'jam_mulai'      => $request->jam_mulai,
+            'jam_selesai'    => $request->jam_selesai,
+            'status'         => 'Menunggu',
+            'catatan'        => $cleanCatatan,
         ]);
 
         return redirect()->route('lab.lacak', ['q' => $kodeTransaksi, 'tab' => 'ruangan'])
