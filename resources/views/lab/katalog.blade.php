@@ -112,12 +112,12 @@
             @php
                 $currentKategori = request('kategori', 'Semua Alat');
             @endphp
-            <a href="{{ route('lab.katalog', array_merge(request()->except('kategori', 'page'), ['tab' => 'alat'])) }}" 
+            <a href="{{ route('lab.katalog', request()->except('kategori', 'page', 'tab')) }}" 
                class="btn btn-sm rounded-pill px-3 py-2 fw-semibold flex-shrink-0 {{ $currentKategori === 'Semua Alat' || !request('kategori') ? 'btn-primary shadow-sm' : 'btn-outline-secondary border-opacity-25 bg-white' }}">
                 <i class="bi bi-grid-fill me-1"></i> Semua Alat
             </a>
             @foreach($kategoriList as $kItem)
-                <a href="{{ route('lab.katalog', array_merge(request()->except('kategori', 'page'), ['kategori' => $kItem->nama_kategori, 'tab' => 'alat'])) }}" 
+                <a href="{{ route('lab.katalog', array_merge(request()->except('kategori', 'page', 'tab'), ['kategori' => $kItem->nama_kategori])) }}" 
                    class="btn btn-sm rounded-pill px-3 py-2 fw-semibold flex-shrink-0 {{ $currentKategori === $kItem->nama_kategori ? 'btn-primary shadow-sm' : 'btn-outline-secondary border-opacity-25 bg-white' }}">
                     <i class="bi {{ $kItem->ikon ?: 'bi-tag-fill' }} me-1"></i> {{ $kItem->nama_kategori }}
                 </a>

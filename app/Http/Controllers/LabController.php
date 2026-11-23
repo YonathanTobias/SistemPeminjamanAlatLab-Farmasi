@@ -38,7 +38,8 @@ class LabController extends Controller
             $query->where('kategori', $request->kategori);
         }
 
-        $alats = $query->latest()->paginate(12)->withQueryString();
+        // Filter pagination alat agar bersih dan tidak mencaplok parameter tab
+        $alats = $query->latest()->paginate(12)->appends($request->except('page', 'tab'));
 
         $stats = [
             'total_alat' => AlatLab::count(),
