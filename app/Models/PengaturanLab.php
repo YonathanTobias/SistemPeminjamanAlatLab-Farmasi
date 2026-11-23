@@ -52,19 +52,19 @@ class PengaturanLab extends Model
     {
         $prodi = strtolower($this->nama_prodi ?? '');
         
-        // 1. S1 Farmasi -> RADIANT GOLD & VIBRANT YELLOW (#FFFF00)
+        // 1. S1 Farmasi -> SUNNY AMBER & ELECTRIC YELLOW (Optimal Light & Dark Mode)
         if (str_contains($prodi, 'farmasi')) {
             return [
                 'name' => 'yellow',
-                'primary' => '#FFFF00',
-                'primary_dark' => '#EAB308',
-                'primary_light' => '#FEF9C3',
-                'btn_text' => '#000000',
-                'text_primary' => '#b45309', // Deep amber/gold pada background putih agar terbaca tajam & tidak silau
-                'gradient' => 'linear-gradient(135deg, #FFFF00 0%, #FDE047 25%, #FACC15 55%, #EAB308 80%, #CA8A04 100%)',
-                'navbar_bg' => 'linear-gradient(90deg, #FDE047 0%, #FACC15 50%, #EAB308 100%)',
-                'navbar_border' => 'rgba(202, 138, 4, 0.4)',
-                'badge_soft' => 'rgba(250, 204, 21, 0.25)',
+                'primary' => '#facc15',
+                'primary_dark' => '#eab308',
+                'primary_light' => '#fef08a',
+                'btn_text' => '#0f172a',
+                'text_primary' => '#b45309',
+                'gradient' => 'linear-gradient(135deg, #18181b 0%, #292524 30%, #78350f 65%, #ca8a04 90%, #facc15 100%)',
+                'navbar_bg' => 'rgba(15, 23, 42, 0.96)',
+                'navbar_border' => 'rgba(250, 204, 21, 0.35)',
+                'badge_soft' => 'rgba(250, 204, 21, 0.15)',
             ];
         }
         

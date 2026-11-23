@@ -53,23 +53,23 @@
         .hero-banner-prodi {
             background: {{ $theme['gradient'] }} !important;
             border: 1px solid {{ $theme['navbar_border'] }} !important;
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.45) !important;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.35) !important;
         }
         .auth-brand-side {
             background: {{ $theme['gradient'] }} !important;
         }
         .btn-primary {
-            background: {{ $theme['primary'] }} !important;
-            border-color: {{ $theme['primary'] }} !important;
-            color: {{ $theme['btn_text'] ?? '#ffffff' }} !important;
+            background: linear-gradient(135deg, {{ $theme['primary'] }} 0%, {{ $theme['primary_dark'] }} 100%) !important;
+            border-color: {{ $theme['primary_dark'] }} !important;
+            color: {{ $theme['btn_text'] ?? '#0f172a' }} !important;
             font-weight: 700 !important;
-            box-shadow: 0 4px 12px rgba(255, 255, 0, 0.2) !important;
+            box-shadow: 0 4px 14px rgba(234, 179, 8, 0.3) !important;
         }
         .btn-primary:hover, .btn-primary:focus {
-            background: {{ $theme['primary_dark'] }} !important;
-            border-color: {{ $theme['primary_dark'] }} !important;
-            color: {{ $theme['btn_text'] ?? '#ffffff' }} !important;
-            box-shadow: 0 6px 16px rgba(255, 255, 0, 0.35) !important;
+            background: linear-gradient(135deg, {{ $theme['primary_dark'] }} 0%, #ca8a04 100%) !important;
+            border-color: #ca8a04 !important;
+            color: {{ $theme['btn_text'] ?? '#0f172a' }} !important;
+            box-shadow: 0 6px 18px rgba(234, 179, 8, 0.45) !important;
         }
         .btn-outline-primary {
             color: {{ $theme['text_primary'] ?? $theme['primary'] }} !important;
@@ -79,7 +79,7 @@
         .btn-outline-primary:hover {
             background-color: {{ $theme['primary'] }} !important;
             border-color: {{ $theme['primary'] }} !important;
-            color: {{ $theme['btn_text'] ?? '#ffffff' }} !important;
+            color: #0f172a !important;
         }
         .badge-soft-primary {
             background-color: {{ $theme['badge_soft'] }} !important;
@@ -90,30 +90,23 @@
         .text-primary {
             color: {{ $theme['text_primary'] ?? $theme['primary'] }} !important;
         }
+        .nav-link-custom {
+            color: #94a3b8 !important;
+        }
+        .nav-link-custom:hover {
+            color: {{ $theme['primary'] }} !important;
+            background: rgba(255, 255, 255, 0.08) !important;
+        }
         .nav-link-custom.active {
             background: {{ $theme['badge_soft'] }} !important;
             border: 1px solid {{ $theme['primary'] }} !important;
             color: {{ $theme['primary'] }} !important;
             font-weight: 700 !important;
         }
-        .medical-pass-header {
-            background: linear-gradient(135deg, {{ $theme['primary_dark'] }}, {{ $theme['primary'] }}) !important;
-        }
-        .brand-icon-box {
-            background: linear-gradient(135deg, {{ $theme['primary'] }} 0%, {{ $theme['primary_dark'] }} 100%) !important;
-        }
-        .stepper-progress-line {
-            background: linear-gradient(90deg, {{ $theme['primary'] }}, #10b981) !important;
-        }
-        .stepper-step.active .stepper-circle {
-            background-color: {{ $theme['primary'] }} !important;
-            border-color: {{ $theme['primary'] }} !important;
-            box-shadow: 0 0 16px {{ $theme['badge_soft'] }} !important;
-        }
         .page-item.active .page-link {
             background-color: {{ $theme['primary'] }} !important;
             border-color: {{ $theme['primary_dark'] ?? $theme['primary'] }} !important;
-            color: {{ $theme['btn_text'] ?? '#000000' }} !important;
+            color: #0f172a !important;
             font-weight: 700 !important;
             box-shadow: 0 2px 8px rgba(234, 179, 8, 0.35) !important;
         }
@@ -126,76 +119,41 @@
             border-color: {{ $theme['primary_dark'] ?? $theme['primary'] }};
         }
 
-        @if(($theme['name'] ?? '') === 'yellow')
-        /* --- Optimal Visibility & Contrast Overrides for Yellow Theme --- */
-        .navbar-custom {
-            color: #111827 !important;
-            border-bottom: 2px solid rgba(202, 138, 4, 0.45) !important;
-            box-shadow: 0 4px 20px rgba(202, 138, 4, 0.15) !important;
+        /* --- Seamless Dark Mode Overrides --- */
+        [data-bs-theme="dark"] .text-primary {
+            color: {{ $theme['primary'] }} !important;
         }
-        .navbar-custom .text-white,
-        .navbar-custom .navbar-brand {
-            color: #111827 !important;
+        [data-bs-theme="dark"] .badge-soft-primary {
+            background-color: {{ $theme['badge_soft'] }} !important;
+            border-color: rgba(250, 204, 21, 0.4) !important;
+            color: {{ $theme['primary'] }} !important;
         }
-        .navbar-custom .text-white-50 {
-            color: #374151 !important;
-            font-weight: 700 !important;
+        [data-bs-theme="dark"] .btn-outline-primary {
+            color: {{ $theme['primary'] }} !important;
+            border-color: {{ $theme['primary'] }} !important;
         }
-        .navbar-custom .nav-link-custom {
-            color: #1f2937 !important;
-            font-weight: 600 !important;
+        [data-bs-theme="dark"] .btn-outline-primary:hover {
+            background-color: {{ $theme['primary'] }} !important;
+            color: #0f172a !important;
         }
-        .navbar-custom .nav-link-custom:hover {
-            color: #000000 !important;
-            background: rgba(0, 0, 0, 0.08) !important;
+        [data-bs-theme="dark"] .page-link {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+            color: #cbd5e1 !important;
         }
-        .navbar-custom .nav-link-custom.active {
-            background: #111827 !important;
-            color: #FFFF00 !important;
-            border: 1px solid #111827 !important;
+        [data-bs-theme="dark"] .page-link:hover {
+            background-color: #334155 !important;
+            color: {{ $theme['primary'] }} !important;
         }
-        .navbar-custom .btn-outline-light {
-            color: #111827 !important;
-            border-color: rgba(0, 0, 0, 0.35) !important;
-            background: rgba(255, 255, 255, 0.35) !important;
-            font-weight: 600 !important;
+        [data-bs-theme="dark"] .page-item.active .page-link {
+            background-color: {{ $theme['primary'] }} !important;
+            border-color: {{ $theme['primary'] }} !important;
+            color: #0f172a !important;
         }
-        .navbar-custom .btn-outline-light:hover {
-            background: #111827 !important;
-            color: #FFFF00 !important;
+        [data-bs-theme="dark"] .card-alat-img {
+            background-color: #0f172a !important;
+            border-color: #334155 !important;
         }
-        .navbar-custom .navbar-toggler-icon {
-            filter: invert(1);
-        }
-        .hero-banner-prodi {
-            color: #111827 !important;
-            border: 1px solid rgba(202, 138, 4, 0.3) !important;
-            box-shadow: 0 10px 30px -8px rgba(234, 179, 8, 0.3) !important;
-        }
-        .hero-banner-prodi h1,
-        .hero-banner-prodi h2,
-        .hero-banner-prodi .h2,
-        .hero-banner-prodi .display-6,
-        .hero-banner-prodi .text-white {
-            color: #111827 !important;
-        }
-        .hero-banner-prodi p {
-            color: rgba(17, 24, 39, 0.88) !important;
-        }
-        .footer-custom {
-            color: #111827 !important;
-            border-top: 2px solid rgba(202, 138, 4, 0.35) !important;
-        }
-        .footer-custom .text-white-50 {
-            color: #374151 !important;
-            font-weight: 500 !important;
-        }
-        .footer-custom .badge-soft-primary {
-            background-color: rgba(0, 0, 0, 0.08) !important;
-            color: #111827 !important;
-            border-color: rgba(0, 0, 0, 0.15) !important;
-        }
-        @endif
     </style>
     @stack('styles')
 </head>
