@@ -97,7 +97,7 @@ class LabController extends Controller
     {
         $request->validate([
             'nama_peminjam'       => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s\.\,\'\-]+$/'],
-            'nim_nip'             => ['required', 'string', 'max:50', 'regex:/^[a-zA-Z0-9\.\-\/]+$/'],
+            'nim_nip'             => ['required', 'string', 'max:50', 'regex:/^[a-zA-Z0-9\.\-\/\_]+$/'],
             'prodi'               => 'required|string|max:100',
             'keperluan'           => 'nullable|string|max:255',
             'tgl_pinjam'          => 'required|date',
