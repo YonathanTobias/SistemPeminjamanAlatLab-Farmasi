@@ -18,7 +18,7 @@
                 </div>
                 <h1 class="h2 fw-bold text-dark mb-2">{{ $pengaturan->nama_sistem ?? 'Layanan Peminjaman Laboratorium' }}</h1>
                 <p class="mb-4 fs-6 col-lg-10" style="color: #1e293b;">
-                    Peminjaman paket peralatan medis praktikum dan ruangan laboratorium pada {{ $pengaturan->unit_laboratorium ?? 'Unit Laboratorium' }} secara terpadu.
+                    Peminjaman instrumen & alat praktikum farmasi serta ruangan laboratorium pada {{ $pengaturan->unit_laboratorium ?? 'Unit Laboratorium Farmasi' }} secara terpadu.
                 </p>
 
                 <!-- Search & Filter Bar inside Hero (Untuk Tab Alat) -->
@@ -113,12 +113,12 @@
                 $currentKategori = request('kategori', 'Semua Alat');
             @endphp
             <a href="{{ route('lab.katalog', request()->except('kategori', 'page', 'tab')) }}" 
-               class="btn btn-sm rounded-pill px-3 py-2 fw-semibold flex-shrink-0 {{ $currentKategori === 'Semua Alat' || !request('kategori') ? 'btn-primary shadow-sm' : 'btn-outline-secondary border-opacity-25 bg-white' }}">
+               class="btn btn-sm rounded-pill px-3 py-2 fw-semibold flex-shrink-0 {{ $currentKategori === 'Semua Alat' || !request('kategori') ? 'btn-primary shadow-sm' : 'btn-outline-secondary bg-white border border-secondary-subtle' }}">
                 <i class="bi bi-grid-fill me-1"></i> Semua Alat
             </a>
             @foreach($kategoriList as $kItem)
                 <a href="{{ route('lab.katalog', array_merge(request()->except('kategori', 'page', 'tab'), ['kategori' => $kItem->nama_kategori])) }}" 
-                   class="btn btn-sm rounded-pill px-3 py-2 fw-semibold flex-shrink-0 {{ $currentKategori === $kItem->nama_kategori ? 'btn-primary shadow-sm' : 'btn-outline-secondary border-opacity-25 bg-white' }}">
+                   class="btn btn-sm rounded-pill px-3 py-2 fw-semibold flex-shrink-0 {{ $currentKategori === $kItem->nama_kategori ? 'btn-primary shadow-sm' : 'btn-outline-secondary bg-white border border-secondary-subtle' }}">
                     <i class="bi {{ $kItem->ikon ?: 'bi-tag-fill' }} me-1"></i> {{ $kItem->nama_kategori }}
                 </a>
             @endforeach
@@ -185,7 +185,7 @@
                         <!-- Bagian Atas: Kategori & Judul -->
                         <div class="mb-3">
                             <div class="d-flex align-items-center justify-content-between mb-2">
-                                <span class="badge bg-light text-secondary border rounded-pill small" style="font-size: 0.72rem;">
+                                <span class="badge rounded-pill kategori-badge">
                                     <i class="bi bi-bookmark-fill text-primary"></i> {{ $alat->kategori ?? 'Teknologi & Formulasi Sediaan' }}
                                 </span>
                                 <!-- Smart Stock Tier Badge -->
@@ -201,18 +201,18 @@
                             <h5 class="card-title fw-bold text-dark mb-1 lh-base" style="font-size: 1.05rem; min-height: 2.7rem;" title="{{ $alat->nama_alat }}">
                                 {{ $alat->nama_alat }}
                             </h5>
-                            <p class="text-muted small mb-0">{{ $pengaturan->unit_laboratorium ?? 'Peralatan Laboratorium Farmasi' }}</p>
+                            <p class="small mb-0 sub-unit-text">{{ $pengaturan->unit_laboratorium ?? 'Peralatan Laboratorium Farmasi' }}</p>
                         </div>
 
                         <!-- Bagian Stok & Indikator -->
                         <div class="mt-auto">
                             <div class="d-flex justify-content-between align-items-center mb-3 p-2 px-3 bg-light rounded-3 border">
-                                <span class="small text-muted fw-semibold">Tersedia Saat Ini:</span>
+                                <span class="small fw-semibold stock-box-text">Tersedia Saat Ini:</span>
                                 <div>
                                     <span class="fs-5 fw-bold {{ $alat->stok_tersedia > 0 ? 'text-primary' : 'text-danger' }}">
                                         {{ $alat->stok_tersedia }}
                                     </span>
-                                    <span class="text-muted small">/ {{ $alat->stok_total }} Unit</span>
+                                    <span class="small fw-semibold stock-box-total">/ {{ $alat->stok_total }} Unit</span>
                                 </div>
                             </div>
 
@@ -490,18 +490,19 @@
                             <select name="prodi" class="form-select" required>
                                 <option value="">-- Pilih Program Studi --</option>
                                 <option value="S1 Farmasi" selected>S1 Farmasi</option>
-                                <option value="D3 Keperawatan">D3 Keperawatan</option>
+                                <option value="D3 Farmasi">D3 Farmasi</option>
                                 <option value="S1 Ilmu Keperawatan">S1 Ilmu Keperawatan</option>
+                                <option value="D3 Keperawatan">D3 Keperawatan</option>
                                 <option value="Profesi Ners">Profesi Ners</option>
                                 <option value="D3 Rekam Medis & Info Kes">D3 Rekam Medis & Info Kes</option>
-                                <option value="Dosen / Instruktur Lab">Dosen / Instruktur Lab</option>
+                                <option value="Dosen / Peneliti / Asisten Lab">Dosen / Peneliti / Asisten Lab</option>
                             </select>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">
                                 <i class="bi bi-journal-medical text-primary"></i> Keperluan Praktikum / Mata Kuliah
                             </label>
-                            <input type="text" name="keperluan" class="form-control" placeholder="Contoh: Praktikum KMB I, Ujian OSCE, TTV" required>
+                            <input type="text" name="keperluan" class="form-control" placeholder="Contoh: Praktikum Formulasi Sediaan Padat, Analisis Kualitatif Bahan Baku" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">
@@ -610,11 +611,12 @@
                             <select name="prodi" class="form-select @error('prodi') is-invalid @enderror" required>
                                 <option value="">-- Pilih Program Studi --</option>
                                 <option value="S1 Farmasi" {{ old('prodi', 'S1 Farmasi') === 'S1 Farmasi' ? 'selected' : '' }}>S1 Farmasi</option>
-                                <option value="D3 Keperawatan" {{ old('prodi') === 'D3 Keperawatan' ? 'selected' : '' }}>D3 Keperawatan</option>
+                                <option value="D3 Farmasi" {{ old('prodi') === 'D3 Farmasi' ? 'selected' : '' }}>D3 Farmasi</option>
                                 <option value="S1 Ilmu Keperawatan" {{ old('prodi') === 'S1 Ilmu Keperawatan' ? 'selected' : '' }}>S1 Ilmu Keperawatan</option>
+                                <option value="D3 Keperawatan" {{ old('prodi') === 'D3 Keperawatan' ? 'selected' : '' }}>D3 Keperawatan</option>
                                 <option value="Profesi Ners" {{ old('prodi') === 'Profesi Ners' ? 'selected' : '' }}>Profesi Ners</option>
                                 <option value="D3 Rekam Medis & Info Kes" {{ old('prodi') === 'D3 Rekam Medis & Info Kes' ? 'selected' : '' }}>D3 Rekam Medis & Info Kes</option>
-                                <option value="Dosen / Instruktur Lab" {{ old('prodi') === 'Dosen / Instruktur Lab' ? 'selected' : '' }}>Dosen / Instruktur Lab</option>
+                                <option value="Dosen / Peneliti / Asisten Lab" {{ old('prodi') === 'Dosen / Peneliti / Asisten Lab' ? 'selected' : '' }}>Dosen / Peneliti / Asisten Lab</option>
                             </select>
                             @error('prodi')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -625,7 +627,7 @@
                             <label class="form-label fw-semibold">
                                 <i class="bi bi-journal-medical text-primary"></i> Keperluan Praktikum / Kegiatan <span class="text-danger">*</span>
                             </label>
-                            <input type="text" name="keperluan" class="form-control @error('keperluan') is-invalid @enderror" value="{{ old('keperluan') }}" placeholder="Contoh: Praktikum Mandiri KMB, Responsi OSCE" required>
+                            <input type="text" name="keperluan" class="form-control @error('keperluan') is-invalid @enderror" value="{{ old('keperluan') }}" placeholder="Contoh: Praktikum Teknologi Formulasi, Uji Sterilitas Mikrobiologi Farmasi" required>
                             @error('keperluan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

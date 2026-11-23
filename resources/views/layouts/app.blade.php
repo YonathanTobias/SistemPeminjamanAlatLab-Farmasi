@@ -155,6 +155,246 @@
             border-color: #334155 !important;
         }
 
+        /* ========================================================
+           ANTI-FAINT & HIGH-CONTRAST TYPOGRAPHY SYSTEM
+           Memastikan semua font tajam, jelas terbaca, tidak samar
+           ======================================================== */
+        body {
+            color: #1e293b;
+        }
+        .text-muted {
+            color: #475569 !important;
+            font-weight: 500 !important;
+        }
+        .text-secondary {
+            color: #334155 !important;
+            font-weight: 600 !important;
+        }
+        .text-white-50 {
+            color: rgba(255, 255, 255, 0.88) !important;
+        }
+        small, .small {
+            font-weight: 500;
+        }
+        .card-title {
+            color: #0f172a !important;
+        }
+        p {
+            color: #334155;
+        }
+        label, .form-label {
+            color: #1e293b !important;
+            font-weight: 600 !important;
+        }
+        .table th {
+            color: #0f172a !important;
+            font-weight: 700 !important;
+        }
+        .table td {
+            color: #1e293b !important;
+        }
+        .badge.bg-light {
+            background-color: #f1f5f9 !important;
+            color: #1e293b !important;
+            border-color: #cbd5e1 !important;
+            font-weight: 600 !important;
+        }
+        .btn-outline-secondary {
+            color: #1e293b !important;
+            border-color: #cbd5e1 !important;
+            font-weight: 600 !important;
+        }
+        .btn-outline-secondary:hover {
+            background-color: #f1f5f9 !important;
+            color: #0f172a !important;
+            border-color: #94a3b8 !important;
+        }
+        ::placeholder {
+            color: #64748b !important;
+            opacity: 1 !important;
+        }
+
+        /* Subtle badges with high contrast */
+        .kategori-badge {
+            background-color: #f1f5f9;
+            color: #1e293b;
+            border: 1px solid #cbd5e1;
+            font-weight: 600;
+            font-size: 0.74rem;
+        }
+        .sub-unit-text {
+            color: #475569;
+            font-weight: 500;
+        }
+        .stock-box-text {
+            color: #1e293b;
+        }
+        .stock-box-total {
+            color: #475569;
+        }
+        .bg-success-subtle {
+            background-color: #dcfce7 !important;
+            color: #15803d !important;
+            font-weight: 600 !important;
+        }
+        .bg-warning-subtle {
+            background-color: #fef9c3 !important;
+            color: #a16207 !important;
+            font-weight: 600 !important;
+        }
+        .bg-danger-subtle {
+            background-color: #fee2e2 !important;
+            color: #b91c1c !important;
+            font-weight: 600 !important;
+        }
+        .bg-info-subtle {
+            background-color: #e0f2fe !important;
+            color: #0369a1 !important;
+            font-weight: 600 !important;
+        }
+        .bg-primary-subtle {
+            background-color: #fef08a !important;
+            color: #854d0e !important;
+            font-weight: 600 !important;
+        }
+
+        /* Pagination typography */
+        nav[role="navigation"] p,
+        nav[role="navigation"] span,
+        .pagination + div p,
+        div:has(> .pagination) p {
+            color: #1e293b !important;
+            font-weight: 600 !important;
+        }
+
+        /* --- Dark Mode High-Contrast Rules --- */
+        [data-bs-theme="dark"] body {
+            color: #f8fafc !important;
+        }
+        [data-bs-theme="dark"] p {
+            color: #e2e8f0 !important;
+        }
+        [data-bs-theme="dark"] .text-muted {
+            color: #cbd5e1 !important;
+            font-weight: 500 !important;
+        }
+        [data-bs-theme="dark"] .text-secondary {
+            color: #f1f5f9 !important;
+            font-weight: 600 !important;
+        }
+        [data-bs-theme="dark"] .card-title,
+        [data-bs-theme="dark"] .text-dark,
+        [data-bs-theme="dark"] strong,
+        [data-bs-theme="dark"] b {
+            color: #ffffff !important;
+        }
+        [data-bs-theme="dark"] .badge.bg-light {
+            background-color: #334155 !important;
+            color: #f8fafc !important;
+            border-color: #475569 !important;
+        }
+        [data-bs-theme="dark"] .table th {
+            color: #ffffff !important;
+        }
+        [data-bs-theme="dark"] .table td {
+            color: #f1f5f9 !important;
+        }
+        [data-bs-theme="dark"] .form-label {
+            color: #f8fafc !important;
+        }
+        [data-bs-theme="dark"] .form-control,
+        [data-bs-theme="dark"] .form-select {
+            color: #ffffff !important;
+            background-color: #0f172a !important;
+            border-color: #334155 !important;
+        }
+        [data-bs-theme="dark"] ::placeholder {
+            color: #94a3b8 !important;
+            opacity: 1 !important;
+        }
+        [data-bs-theme="dark"] .kategori-badge {
+            background-color: #1e293b !important;
+            color: #f8fafc !important;
+            border-color: #334155 !important;
+        }
+        [data-bs-theme="dark"] .sub-unit-text {
+            color: #cbd5e1 !important;
+        }
+        [data-bs-theme="dark"] .stock-box-text {
+            color: #f8fafc !important;
+        }
+        [data-bs-theme="dark"] .stock-box-total {
+            color: #cbd5e1 !important;
+        }
+        [data-bs-theme="dark"] .badge-soft-success {
+            background-color: rgba(34, 197, 94, 0.2) !important;
+            color: #4ade80 !important;
+            border-color: rgba(34, 197, 94, 0.4) !important;
+        }
+        [data-bs-theme="dark"] .badge-soft-warning {
+            background-color: rgba(234, 179, 8, 0.2) !important;
+            color: #facc15 !important;
+            border-color: rgba(234, 179, 8, 0.4) !important;
+        }
+        [data-bs-theme="dark"] .badge-soft-danger {
+            background-color: rgba(239, 68, 68, 0.2) !important;
+            color: #f87171 !important;
+            border-color: rgba(239, 68, 68, 0.4) !important;
+        }
+        [data-bs-theme="dark"] .badge-soft-secondary {
+            background-color: rgba(148, 163, 184, 0.2) !important;
+            color: #f1f5f9 !important;
+            border-color: rgba(148, 163, 184, 0.4) !important;
+        }
+        [data-bs-theme="dark"] .bg-success-subtle {
+            background-color: rgba(34, 197, 94, 0.22) !important;
+            color: #86efac !important;
+        }
+        [data-bs-theme="dark"] .bg-warning-subtle {
+            background-color: rgba(234, 179, 8, 0.22) !important;
+            color: #fde047 !important;
+        }
+        [data-bs-theme="dark"] .bg-danger-subtle {
+            background-color: rgba(239, 68, 68, 0.22) !important;
+            color: #fca5a5 !important;
+        }
+        [data-bs-theme="dark"] .bg-info-subtle {
+            background-color: rgba(14, 165, 233, 0.22) !important;
+            color: #7dd3fc !important;
+        }
+        [data-bs-theme="dark"] .bg-primary-subtle {
+            background-color: rgba(250, 204, 21, 0.22) !important;
+            color: #fde047 !important;
+        }
+        [data-bs-theme="dark"] .btn-outline-secondary {
+            color: #e2e8f0 !important;
+            border-color: #475569 !important;
+        }
+        [data-bs-theme="dark"] .btn-outline-secondary:hover {
+            background-color: #334155 !important;
+            color: #ffffff !important;
+        }
+        [data-bs-theme="dark"] nav[role="navigation"] p,
+        [data-bs-theme="dark"] nav[role="navigation"] span,
+        [data-bs-theme="dark"] .pagination + div p,
+        [data-bs-theme="dark"] div:has(> .pagination) p {
+            color: #f1f5f9 !important;
+            font-weight: 600 !important;
+        }
+        [data-bs-theme="dark"] .modal-content {
+            background-color: #0f172a !important;
+            color: #f8fafc !important;
+            border-color: #334155 !important;
+        }
+        [data-bs-theme="dark"] .modal-header,
+        [data-bs-theme="dark"] .modal-footer {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+        }
+        [data-bs-theme="dark"] .modal-title {
+            color: #ffffff !important;
+        }
+
         @if(($theme['name'] ?? '') === 'yellow')
         .hero-banner-prodi {
             color: #0f172a !important;
@@ -184,7 +424,7 @@
                     <img src="{{ asset($pengaturan->logo_path ?? 'images/logo-stikes.png') }}" alt="Logo" height="38" class="me-2 flex-shrink-0" style="object-fit: contain;">
                     <div>
                         <div class="fw-bold lh-1 text-white" style="font-size: 0.92rem;">SIM-LAB STIKES</div>
-                        <small class="text-white-50 d-block" style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.04em; white-space: nowrap;">{{ strtoupper($pengaturan->nama_prodi ?? 'STIKES PANTI WALUYA') }}</small>
+                        <small class="d-block" style="font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em; color: rgba(255, 255, 255, 0.88); white-space: nowrap;">{{ strtoupper($pengaturan->nama_prodi ?? 'STIKES PANTI WALUYA') }}</small>
                     </div>
                 </a>
 
@@ -378,15 +618,15 @@
                         <img src="{{ asset($pengaturan->logo_path ?? 'images/logo-stikes.png') }}" alt="Logo" height="48" style="object-fit: contain;">
                         <div>
                             <div class="d-flex align-items-center gap-2 mb-1">
-                                <span class="badge badge-soft-primary border border-opacity-25 px-2 py-1 rounded-pill small">
+                                <span class="badge badge-soft-primary px-3 py-1 rounded-pill small fw-semibold">
                                     <i class="bi bi-hospital"></i> {{ $pengaturan->unit_laboratorium ?? 'Unit Laboratorium' }}
                                 </span>
                             </div>
-                            <p class="mb-0 text-white-50">{{ $pengaturan->nama_institusi ?? 'STIKES Panti Waluya Malang' }} &copy; {{ date('Y') }}. {{ $pengaturan->nama_sistem ?? 'Sistem Informasi Laboratorium' }}.</p>
+                            <p class="mb-0" style="color: rgba(255, 255, 255, 0.88); font-size: 0.85rem;">{{ $pengaturan->nama_institusi ?? 'STIKES Panti Waluya Malang' }} &copy; {{ date('Y') }}. {{ $pengaturan->nama_sistem ?? 'Sistem Informasi Laboratorium' }}.</p>
                         </div>
                     </div>
                     <div class="col-md-5 text-center text-md-end">
-                        <span class="text-white-50 small">{{ $pengaturan->alamat_institusi ?? 'Jl. Yulius Usman No.62, Kasin, Klojen, Kota Malang' }} &bull; Telp: {{ $pengaturan->kontak_lab ?? '(0341) 369003' }}</span>
+                        <span class="small" style="color: rgba(255, 255, 255, 0.88);">{{ $pengaturan->alamat_institusi ?? 'Jl. Yulius Usman No.62, Kasin, Klojen, Kota Malang' }} &bull; Telp: {{ $pengaturan->kontak_lab ?? '(0341) 369003' }}</span>
                     </div>
                 </div>
             </div>

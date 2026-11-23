@@ -4,7 +4,7 @@
 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
     <div>
         <h2 class="fw-bold text-dark mb-1">Inventaris Alat Laboratorium</h2>
-        <p class="text-muted small mb-0">Manajemen master data peralatan medis, kategori praktikum, foto alat, dan ketersediaan unit.</p>
+        <p class="text-muted small mb-0">Manajemen master data peralatan laboratorium farmasi, kategori praktikum, foto alat, dan ketersediaan unit.</p>
     </div>
     <div class="d-flex align-items-center gap-2 flex-wrap">
         <a href="{{ route('admin.kategori.index') }}" class="btn btn-outline-primary shadow-xs">
@@ -88,7 +88,7 @@
                     <span class="input-group-text bg-light border-end-0">
                         <i class="bi bi-search text-muted"></i>
                     </span>
-                    <input type="text" name="search" class="form-control border-start-0 ps-0" placeholder="Cari berdasarkan nama alat medis atau kode (contoh: KDM-001, Stetoskop)..." value="{{ request('search') }}">
+                    <input type="text" name="search" class="form-control border-start-0 ps-0" placeholder="Cari berdasarkan nama alat farmasi atau kode (contoh: TEK-001, Spektrofotometer)..." value="{{ request('search') }}">
                 </div>
             </div>
             <div class="col-md-2 d-flex gap-1">
@@ -203,7 +203,7 @@
                                     <i class="bi bi-inbox fs-1 text-muted opacity-50"></i>
                                 </div>
                                 <h6 class="fw-bold text-dark">Belum Ada Data Alat</h6>
-                                <p class="small text-muted mb-0">Klik tombol "+ Tambah Alat Baru" di kanan atas untuk menambahkan peralatan medis.</p>
+                                <p class="small text-muted mb-0">Klik tombol "+ Tambah Alat Baru" di kanan atas untuk menambahkan inventaris alat lab farmasi.</p>
                             </td>
                         </tr>
                     @endforelse
@@ -230,7 +230,7 @@
                         <h5 class="modal-title fw-bold mb-0" id="modalTambahAlatLabel">
                             <i class="bi bi-plus-circle me-1"></i> Tambah Peralatan Lab Baru
                         </h5>
-                        <small class="text-white-50">Daftarkan inventaris alat medis baru ke sistem</small>
+                        <small class="text-white-50">Daftarkan inventaris alat praktikum farmasi baru ke sistem</small>
                     </div>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -240,7 +240,7 @@
                             <label class="form-label small fw-bold text-dark">
                                 <i class="bi bi-tag text-primary"></i> Kode Alat Lab
                             </label>
-                            <input type="text" name="kode_alat" class="form-control" placeholder="Contoh: KDM-010" required>
+                            <input type="text" name="kode_alat" class="form-control" placeholder="Contoh: TEK-010" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label small fw-bold text-dark">
@@ -254,9 +254,9 @@
                         </div>
                         <div class="col-12">
                             <label class="form-label small fw-bold text-dark">
-                                <i class="bi bi-card-heading text-primary"></i> Nama Peralatan Medis / Lab
+                                <i class="bi bi-card-heading text-primary"></i> Nama Alat Laboratorium Farmasi
                             </label>
-                            <input type="text" name="nama_alat" class="form-control" placeholder="Contoh: Stetoskop Littmann Classic III" required>
+                            <input type="text" name="nama_alat" class="form-control" placeholder="Contoh: Spektrofotometer UV-Vis Shimadzu" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label small fw-bold text-dark">
@@ -275,7 +275,7 @@
                         </div>
                         <div class="col-12">
                             <label class="form-label small fw-bold text-dark">
-                                <i class="bi bi-image text-primary"></i> Foto Alat Medis (Opsional)
+                                <i class="bi bi-image text-primary"></i> Foto Alat Praktikum (Opsional)
                             </label>
                             <input type="file" name="gambar" class="form-control" accept="image/*">
                             <small class="text-muted" style="font-size: 0.75rem;">Format: JPG, PNG, WEBP (Maksimal 2MB).</small>
@@ -327,7 +327,7 @@
                                 </select>
                             </div>
                             <div class="col-12">
-                                <label class="form-label small fw-bold text-dark">Nama Peralatan Medis</label>
+                                <label class="form-label small fw-bold text-dark">Nama Alat Laboratorium Farmasi</label>
                                 <input type="text" name="nama_alat" class="form-control" value="{{ old('nama_alat', $alat->nama_alat) }}" required>
                             </div>
                             <div class="col-md-6">

@@ -120,7 +120,7 @@
                 @endif
 
                 <!-- List Paket Alat -->
-                <h6 class="fw-bold text-dark mb-2"><i class="bi bi-boxes text-primary"></i> Daftar Paket Peralatan Medis ({{ $item->details->sum('jumlah_pinjam') }} Unit):</h6>
+                <h6 class="fw-bold text-dark mb-2"><i class="bi bi-boxes text-primary"></i> Daftar Paket Alat Praktikum Farmasi ({{ $item->details->sum('jumlah_pinjam') }} Unit):</h6>
                 <div class="d-flex flex-wrap gap-2 mb-3">
                     @foreach($item->details as $d)
                         <div class="p-2 px-3 bg-white border rounded-3 shadow-xs d-flex align-items-center gap-2">
@@ -139,7 +139,7 @@
                 <div class="medical-pass-card shadow-sm position-relative text-start">
                     <div class="medical-pass-header d-flex justify-content-between align-items-center">
                         <div>
-                            <span class="badge bg-white text-primary rounded-pill px-2 py-1 small fw-bold" style="font-size: 0.68rem;">E-KARCIS ALAT MEDIS</span>
+                            <span class="badge bg-white text-primary rounded-pill px-2 py-1 small fw-bold" style="font-size: 0.68rem;">E-KARCIS ALAT FARMASI</span>
                             <div class="fw-bold mt-1 text-white small">{{ $pengaturan->nama_institusi ?? 'STIKES Panti Waluya Malang' }}</div>
                         </div>
                         <i class="bi bi-qr-code fs-3 text-white-50"></i>

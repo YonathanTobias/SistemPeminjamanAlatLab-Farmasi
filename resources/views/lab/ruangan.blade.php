@@ -49,7 +49,7 @@
             <h4 class="fw-bold mb-0 d-flex align-items-center gap-2">
                 <i class="bi bi-building text-primary"></i> Daftar Ruangan Laboratorium
             </h4>
-            <span class="text-muted small">Pilih salah satu ruangan untuk langsung membuka formulir pengajuan</span>
+            <span class="small fw-semibold" style="color: #475569;">Pilih salah satu ruangan untuk langsung membuka formulir pengajuan</span>
         </div>
         @forelse ($ruangans as $ruang)
             <div class="col-md-6 col-lg-4">
@@ -59,20 +59,20 @@
                             <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-1 rounded-pill">
                                 {{ $ruang->kode_ruangan }}
                             </span>
-                            <span class="badge {{ $ruang->status === 'Tersedia' ? 'bg-success-subtle text-success' : 'bg-warning-subtle text-warning' }} rounded-pill px-3 py-1">
+                            <span class="badge {{ $ruang->status === 'Tersedia' ? 'badge-soft-success' : 'badge-soft-warning' }} rounded-pill px-3 py-1">
                                 {{ $ruang->status }}
                             </span>
                         </div>
                         <h5 class="card-title fw-bold text-dark mb-2">{{ $ruang->nama_ruangan }}</h5>
-                        <p class="text-muted small mb-2">
+                        <p class="small mb-2 sub-unit-text">
                             <i class="bi bi-geo-alt me-1 text-danger"></i> {{ $ruang->lokasi ?? 'Gedung Laboratorium' }}
                         </p>
-                        <p class="text-muted small mb-3">
-                            <i class="bi bi-people me-1 text-primary"></i> Kapasitas: <strong>{{ $ruang->kapasitas }} Orang</strong>
+                        <p class="small mb-3 sub-unit-text">
+                            <i class="bi bi-people me-1 text-primary"></i> Kapasitas: <strong class="text-dark">{{ $ruang->kapasitas }} Orang</strong>
                         </p>
-                        <div class="bg-light p-3 rounded-3 mb-3 flex-grow-1">
-                            <small class="text-muted fw-semibold d-block mb-1">Fasilitas:</small>
-                            <small class="text-dark">{{ $ruang->fasilitas ?? 'Standar Laboratorium' }}</small>
+                        <div class="bg-light p-3 rounded-3 mb-3 flex-grow-1 border">
+                            <small class="fw-bold d-block mb-1 text-dark">Fasilitas:</small>
+                            <small class="sub-unit-text">{{ $ruang->fasilitas ?? 'Standar Laboratorium' }}</small>
                         </div>
                         @if ($ruang->status === 'Tersedia')
                             <button type="button" class="btn btn-primary w-100 rounded-pill btn-sm py-2 fw-semibold shadow-sm" onclick="bukaModalPinjamRuangan({{ $ruang->id }}, '{{ addslashes($ruang->nama_ruangan) }} ({{ $ruang->kode_ruangan }}) - Kapasitas {{ $ruang->kapasitas }} Org')">
@@ -177,11 +177,12 @@
                             <select name="prodi" class="form-select @error('prodi') is-invalid @enderror" required>
                                 <option value="">-- Pilih Program Studi --</option>
                                 <option value="S1 Farmasi" {{ old('prodi', 'S1 Farmasi') === 'S1 Farmasi' ? 'selected' : '' }}>S1 Farmasi</option>
-                                <option value="D3 Keperawatan" {{ old('prodi') === 'D3 Keperawatan' ? 'selected' : '' }}>D3 Keperawatan</option>
+                                <option value="D3 Farmasi" {{ old('prodi') === 'D3 Farmasi' ? 'selected' : '' }}>D3 Farmasi</option>
                                 <option value="S1 Ilmu Keperawatan" {{ old('prodi') === 'S1 Ilmu Keperawatan' ? 'selected' : '' }}>S1 Ilmu Keperawatan</option>
+                                <option value="D3 Keperawatan" {{ old('prodi') === 'D3 Keperawatan' ? 'selected' : '' }}>D3 Keperawatan</option>
                                 <option value="Profesi Ners" {{ old('prodi') === 'Profesi Ners' ? 'selected' : '' }}>Profesi Ners</option>
                                 <option value="D3 Rekam Medis & Info Kes" {{ old('prodi') === 'D3 Rekam Medis & Info Kes' ? 'selected' : '' }}>D3 Rekam Medis & Info Kes</option>
-                                <option value="Dosen / Instruktur Lab" {{ old('prodi') === 'Dosen / Instruktur Lab' ? 'selected' : '' }}>Dosen / Instruktur Lab</option>
+                                <option value="Dosen / Peneliti / Asisten Lab" {{ old('prodi') === 'Dosen / Peneliti / Asisten Lab' ? 'selected' : '' }}>Dosen / Peneliti / Asisten Lab</option>
                             </select>
                             @error('prodi')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -192,7 +193,7 @@
                             <label class="form-label fw-semibold">
                                 <i class="bi bi-journal-medical text-primary"></i> Keperluan Praktikum / Kegiatan <span class="text-danger">*</span>
                             </label>
-                            <input type="text" name="keperluan" class="form-control @error('keperluan') is-invalid @enderror" value="{{ old('keperluan') }}" placeholder="Contoh: Praktikum Mandiri KMB, Responsi OSCE" required>
+                            <input type="text" name="keperluan" class="form-control @error('keperluan') is-invalid @enderror" value="{{ old('keperluan') }}" placeholder="Contoh: Praktikum Teknologi Formulasi, Uji Sterilitas Mikrobiologi Farmasi" required>
                             @error('keperluan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

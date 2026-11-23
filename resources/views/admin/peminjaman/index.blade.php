@@ -42,7 +42,7 @@
                 <h5 class="fw-bold text-danger mb-0">Perhatian: {{ $overdueLoans->count() }} Peminjaman Melewati Batas Waktu Pengembalian (Overdue)</h5>
                 <span class="badge bg-danger">Segera Hubungi Peminjam</span>
             </div>
-            <p class="small text-muted mb-2">Peralatan medis di bawah ini belum dikembalikan melewati tanggal rencana kembali:</p>
+            <p class="small text-muted mb-2">Peralatan laboratorium farmasi di bawah ini belum dikembalikan melewati tanggal rencana kembali:</p>
             <div class="d-flex flex-wrap gap-2">
                 @foreach($overdueLoans as $ol)
                     <span class="badge bg-white text-danger border border-danger border-opacity-25 py-2 px-3 shadow-xs">

@@ -16,7 +16,7 @@
                                     </div>
                                     <div>
                                         <h5 class="fw-bold text-white mb-0">STIKES Panti Waluya</h5>
-                                        <small class="text-white-50">Sistem Informasi Laboratorium Medis</small>
+                                        <small class="text-white-50">Sistem Informasi Laboratorium Farmasi</small>
                                     </div>
                                 </div>
 
