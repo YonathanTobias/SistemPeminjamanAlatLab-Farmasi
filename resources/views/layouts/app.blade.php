@@ -112,19 +112,90 @@
         }
         .page-item.active .page-link {
             background-color: {{ $theme['primary'] }} !important;
-            border-color: {{ $theme['primary'] }} !important;
+            border-color: {{ $theme['primary_dark'] ?? $theme['primary'] }} !important;
             color: {{ $theme['btn_text'] ?? '#000000' }} !important;
             font-weight: 700 !important;
-            box-shadow: 0 2px 8px rgba(255, 255, 0, 0.25) !important;
+            box-shadow: 0 2px 8px rgba(234, 179, 8, 0.35) !important;
         }
         .page-link {
             color: #374151;
         }
         .page-link:hover {
             color: #000000;
-            background-color: {{ $theme['primary_light'] ?? '#FFFFCC' }};
-            border-color: {{ $theme['primary'] }};
+            background-color: {{ $theme['primary_light'] ?? '#FEF9C3' }};
+            border-color: {{ $theme['primary_dark'] ?? $theme['primary'] }};
         }
+
+        @if(($theme['name'] ?? '') === 'yellow')
+        /* --- Optimal Visibility & Contrast Overrides for Yellow Theme --- */
+        .navbar-custom {
+            color: #111827 !important;
+            border-bottom: 2px solid rgba(202, 138, 4, 0.45) !important;
+            box-shadow: 0 4px 20px rgba(202, 138, 4, 0.15) !important;
+        }
+        .navbar-custom .text-white,
+        .navbar-custom .navbar-brand {
+            color: #111827 !important;
+        }
+        .navbar-custom .text-white-50 {
+            color: #374151 !important;
+            font-weight: 700 !important;
+        }
+        .navbar-custom .nav-link-custom {
+            color: #1f2937 !important;
+            font-weight: 600 !important;
+        }
+        .navbar-custom .nav-link-custom:hover {
+            color: #000000 !important;
+            background: rgba(0, 0, 0, 0.08) !important;
+        }
+        .navbar-custom .nav-link-custom.active {
+            background: #111827 !important;
+            color: #FFFF00 !important;
+            border: 1px solid #111827 !important;
+        }
+        .navbar-custom .btn-outline-light {
+            color: #111827 !important;
+            border-color: rgba(0, 0, 0, 0.35) !important;
+            background: rgba(255, 255, 255, 0.35) !important;
+            font-weight: 600 !important;
+        }
+        .navbar-custom .btn-outline-light:hover {
+            background: #111827 !important;
+            color: #FFFF00 !important;
+        }
+        .navbar-custom .navbar-toggler-icon {
+            filter: invert(1);
+        }
+        .hero-banner-prodi {
+            color: #111827 !important;
+            border: 1px solid rgba(202, 138, 4, 0.3) !important;
+            box-shadow: 0 10px 30px -8px rgba(234, 179, 8, 0.3) !important;
+        }
+        .hero-banner-prodi h1,
+        .hero-banner-prodi h2,
+        .hero-banner-prodi .h2,
+        .hero-banner-prodi .display-6,
+        .hero-banner-prodi .text-white {
+            color: #111827 !important;
+        }
+        .hero-banner-prodi p {
+            color: rgba(17, 24, 39, 0.88) !important;
+        }
+        .footer-custom {
+            color: #111827 !important;
+            border-top: 2px solid rgba(202, 138, 4, 0.35) !important;
+        }
+        .footer-custom .text-white-50 {
+            color: #374151 !important;
+            font-weight: 500 !important;
+        }
+        .footer-custom .badge-soft-primary {
+            background-color: rgba(0, 0, 0, 0.08) !important;
+            color: #111827 !important;
+            border-color: rgba(0, 0, 0, 0.15) !important;
+        }
+        @endif
     </style>
     @stack('styles')
 </head>
