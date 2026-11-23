@@ -11,20 +11,20 @@
                         <img src="{{ asset($pengaturan->logo_path ?? 'images/logo-stikes.png') }}" alt="Logo" height="42" style="object-fit: contain;">
                     </div>
                     <div>
-                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill small fw-semibold" style="background: rgba(250, 204, 21, 0.15); border: 1px solid rgba(250, 204, 21, 0.4); color: #ffffff;">
-                            <i class="bi bi-hospital" style="color: #facc15;"></i> {{ $pengaturan->nama_prodi ?? 'Prodi S1 Farmasi' }} &bull; {{ $pengaturan->nama_institusi ?? 'STIKES Panti Waluya' }}
+                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill small fw-semibold" style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(6px); border: 1px solid rgba(0, 0, 0, 0.1); color: #0f172a;">
+                            <i class="bi bi-hospital" style="color: #b45309;"></i> {{ $pengaturan->nama_prodi ?? 'Prodi S1 Farmasi' }} &bull; {{ $pengaturan->nama_institusi ?? 'STIKES Panti Waluya' }}
                         </div>
                     </div>
                 </div>
-                <h1 class="h2 fw-bold text-white mb-2">{{ $pengaturan->nama_sistem ?? 'Layanan Peminjaman Laboratorium' }}</h1>
-                <p class="mb-4 fs-6 col-lg-10" style="color: rgba(255, 255, 255, 0.9);">
+                <h1 class="h2 fw-bold text-dark mb-2">{{ $pengaturan->nama_sistem ?? 'Layanan Peminjaman Laboratorium' }}</h1>
+                <p class="mb-4 fs-6 col-lg-10" style="color: #1e293b;">
                     Peminjaman paket peralatan medis praktikum dan ruangan laboratorium pada {{ $pengaturan->unit_laboratorium ?? 'Unit Laboratorium' }} secara terpadu.
                 </p>
 
                 <!-- Search & Filter Bar inside Hero (Untuk Tab Alat) -->
                 <div class="row g-2 col-lg-11" id="heroSearchAlatBar" style="{{ ($activeTab === 'ruangan') ? 'display: none !important;' : '' }}">
                     <div class="col-md-7 position-relative">
-                        <div class="input-group">
+                        <div class="input-group shadow-sm">
                             <span class="input-group-text bg-white border-0 text-muted ps-3">
                                 <i class="bi bi-search text-primary"></i>
                             </span>
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <select id="filterKategoriKatalog" class="form-select border-0 py-3 shadow-none fw-semibold">
+                        <select id="filterKategoriKatalog" class="form-select border-0 py-3 shadow-sm fw-semibold">
                             <option value="">Semua Kategori Alat</option>
                             @foreach($kategoriList as $kItem)
                                 <option value="{{ $kItem->nama_kategori }}">{{ $kItem->nama_kategori }}</option>
@@ -43,30 +43,30 @@
 
                 <!-- Info Tombol Booking Cepat (Untuk Tab Ruangan) -->
                 <div id="heroActionRuanganBar" style="{{ ($activeTab === 'ruangan') ? '' : 'display: none !important;' }}">
-                    <button type="button" class="btn btn-light btn-lg rounded-pill px-4 shadow-sm fw-bold" onclick="bukaModalPinjamRuangan()">
-                        <i class="bi bi-calendar-plus text-primary me-1"></i> Form Pengajuan Ruangan
+                    <button type="button" class="btn btn-dark btn-lg rounded-pill px-4 shadow-sm fw-bold" onclick="bukaModalPinjamRuangan()">
+                        <i class="bi bi-calendar-plus text-warning me-1"></i> Form Pengajuan Ruangan
                     </button>
                 </div>
             </div>
             
             <div class="col-lg-4 mt-4 mt-lg-0 d-none d-lg-block">
                 <div class="d-flex flex-column gap-3">
-                    <div class="p-3 rounded-3 d-flex align-items-center gap-3" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(8px); border: 1px solid rgba(250, 204, 21, 0.35);">
-                        <div class="rounded-3 p-2 fs-4 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; background: rgba(250, 204, 21, 0.2); color: #facc15;">
+                    <div class="p-3 rounded-3 d-flex align-items-center gap-3" style="background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(8px); border: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
+                        <div class="rounded-3 p-2 fs-4 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; background: #0f172a; color: #facc15;">
                             <i class="bi bi-boxes"></i>
                         </div>
                         <div>
-                            <div class="small" style="color: rgba(255, 255, 255, 0.85);">Alat Lab Tersedia</div>
-                            <div class="fs-5 fw-bold text-white">{{ $stats['total_tersedia'] ?? 0 }} Unit ({{ $stats['total_alat'] ?? 0 }} Jenis)</div>
+                            <div class="small fw-semibold" style="color: #475569;">Alat Lab Tersedia</div>
+                            <div class="fs-5 fw-bold text-dark">{{ $stats['total_tersedia'] ?? 0 }} Unit ({{ $stats['total_alat'] ?? 0 }} Jenis)</div>
                         </div>
                     </div>
-                    <div class="p-3 rounded-3 d-flex align-items-center gap-3" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(8px); border: 1px solid rgba(250, 204, 21, 0.35);">
-                        <div class="rounded-3 p-2 fs-4 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; background: rgba(250, 204, 21, 0.2); color: #facc15;">
+                    <div class="p-3 rounded-3 d-flex align-items-center gap-3" style="background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(8px); border: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
+                        <div class="rounded-3 p-2 fs-4 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; background: #0f172a; color: #facc15;">
                             <i class="bi bi-door-open"></i>
                         </div>
                         <div>
-                            <div class="small" style="color: rgba(255, 255, 255, 0.85);">Ruangan Lab Siap Pakai</div>
-                            <div class="fs-5 fw-bold text-white">{{ $totalRuangTersedia ?? 0 }} dari {{ count($ruangans ?? []) }} Ruang</div>
+                            <div class="small fw-semibold" style="color: #475569;">Ruangan Lab Siap Pakai</div>
+                            <div class="fs-5 fw-bold text-dark">{{ $totalRuangTersedia ?? 0 }} dari {{ count($ruangans ?? []) }} Ruang</div>
                         </div>
                     </div>
                 </div>

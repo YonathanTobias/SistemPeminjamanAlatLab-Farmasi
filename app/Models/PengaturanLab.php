@@ -61,7 +61,7 @@ class PengaturanLab extends Model
                 'primary_light' => '#fef08a',
                 'btn_text' => '#0f172a',
                 'text_primary' => '#b45309',
-                'gradient' => 'linear-gradient(135deg, #18181b 0%, #292524 30%, #78350f 65%, #ca8a04 90%, #facc15 100%)',
+                'gradient' => 'linear-gradient(135deg, #FEF08A 0%, #FDE047 25%, #FACC15 55%, #EAB308 80%, #D97706 100%)',
                 'navbar_bg' => 'rgba(15, 23, 42, 0.96)',
                 'navbar_border' => 'rgba(250, 204, 21, 0.35)',
                 'badge_soft' => 'rgba(250, 204, 21, 0.15)',

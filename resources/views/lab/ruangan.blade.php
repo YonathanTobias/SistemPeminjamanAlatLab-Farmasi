@@ -15,8 +15,8 @@
                 </p>
             </div>
             <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-                <button type="button" class="btn btn-light btn-lg rounded-pill px-4 shadow-sm fw-bold" onclick="bukaModalPinjamRuangan()">
-                    <i class="bi bi-calendar-plus me-1"></i> Ajukan Peminjaman
+                <button type="button" class="btn btn-dark btn-lg rounded-pill px-4 shadow-sm fw-bold" onclick="bukaModalPinjamRuangan()">
+                    <i class="bi bi-calendar-plus text-warning me-1"></i> Ajukan Peminjaman
                 </button>
             </div>
         </div>

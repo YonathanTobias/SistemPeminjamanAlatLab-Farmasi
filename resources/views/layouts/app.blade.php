@@ -154,6 +154,24 @@
             background-color: #0f172a !important;
             border-color: #334155 !important;
         }
+
+        @if(($theme['name'] ?? '') === 'yellow')
+        .hero-banner-prodi {
+            color: #0f172a !important;
+            border: 1px solid rgba(234, 179, 8, 0.45) !important;
+            box-shadow: 0 10px 30px -5px rgba(234, 179, 8, 0.25) !important;
+        }
+        .hero-banner-prodi h1,
+        .hero-banner-prodi h2,
+        .hero-banner-prodi .h2,
+        .hero-banner-prodi .display-6,
+        .hero-banner-prodi .text-white {
+            color: #0f172a !important;
+        }
+        .hero-banner-prodi p {
+            color: #1e293b !important;
+        }
+        @endif
     </style>
     @stack('styles')
 </head>
