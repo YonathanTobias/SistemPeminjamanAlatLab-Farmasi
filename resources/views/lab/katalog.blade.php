@@ -325,7 +325,7 @@
             0
         </span>
     </div>
-    <span class="fw-bold d-none d-sm-inline">Keranjang Praktikum</span>
+    <span class="fw-bold d-none d-sm-inline" id="cartBtnLabel">Keranjang Praktikum</span>
 </button>
 
 <!-- OFFCANVAS DRAWER KERANJANG ALAT -->

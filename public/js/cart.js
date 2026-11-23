@@ -16,10 +16,15 @@ function saveCart(cart) {
 }
 
 function addToCart(btn) {
-    const id = parseInt(btn.getAttribute('data-id'));
-    const kode = btn.getAttribute('data-kode');
-    const nama = btn.getAttribute('data-nama');
-    const stok = parseInt(btn.getAttribute('data-stok'));
+    const button = (btn && btn.closest) ? (btn.closest('[data-id]') || btn) : btn;
+    if (!button) return;
+
+    const id = parseInt(button.getAttribute('data-id'));
+    const kode = button.getAttribute('data-kode') || '';
+    const nama = button.getAttribute('data-nama') || 'Alat Praktikum';
+    const stok = parseInt(button.getAttribute('data-stok')) || 0;
+
+    if (!id) return;
 
     let cart = getCart();
     const existingIndex = cart.findIndex(item => item.id === id);
@@ -28,10 +33,20 @@ function addToCart(btn) {
         if (cart[existingIndex].jumlah < stok) {
             cart[existingIndex].jumlah += 1;
         } else {
-            Toast.fire({
-                icon: 'warning',
-                title: `Maksimal peminjaman ${nama} adalah ${stok} unit (stok habis).`
-            });
+            if (typeof Toast !== 'undefined' && Toast.fire) {
+                Toast.fire({
+                    icon: 'warning',
+                    title: `Maksimal peminjaman ${nama} adalah ${stok} unit (stok habis).`
+                });
+            } else if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Batas Stok',
+                    text: `Maksimal peminjaman ${nama} adalah ${stok} unit.`
+                });
+            } else {
+                alert(`Maksimal peminjaman ${nama} adalah ${stok} unit.`);
+            }
             return;
         }
     } else {
@@ -46,18 +61,29 @@ function addToCart(btn) {
 
     saveCart(cart);
 
-    Toast.fire({
-        icon: 'success',
-        title: `+ ${nama} dimasukkan ke keranjang!`
-    });
+    if (typeof Toast !== 'undefined' && Toast.fire) {
+        Toast.fire({
+            icon: 'success',
+            title: `+ ${nama} dimasukkan ke keranjang!`
+        });
+    } else if (typeof Swal !== 'undefined') {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            icon: 'success',
+            title: `+ ${nama} dimasukkan ke keranjang!`
+        });
+    }
 
     // Feedback visual tombol
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="bi bi-check-lg"></i> Ditambahkan!';
-    btn.classList.replace('btn-primary', 'btn-success');
+    const originalText = button.innerHTML;
+    button.innerHTML = '<i class="bi bi-check-lg"></i> Ditambahkan!';
+    button.classList.replace('btn-primary', 'btn-success');
     setTimeout(() => {
-        btn.innerHTML = originalText;
-        btn.classList.replace('btn-success', 'btn-primary');
+        button.innerHTML = originalText;
+        button.classList.replace('btn-success', 'btn-primary');
     }, 800);
 }
 
@@ -128,31 +154,47 @@ function clearCart() {
 function updateCartUI() {
     const cart = getCart();
     const fab = document.getElementById('floatingCartBtn');
-    const badge = document.getElementById('cartCountBadge');
+    const badge = document.getElementById('cartBadgeCount') || document.getElementById('cartCountBadge');
+    const btnLabel = document.getElementById('cartBtnLabel');
     const listCount = document.getElementById('cartListCount');
     const tbody = document.getElementById('cartTableBody');
     const emptyWarning = document.getElementById('cartEmptyWarning');
     const btnSubmit = document.getElementById('btnSubmitCheckout');
 
-    if (!fab || !badge) return;
+    const totalItems = cart.reduce((sum, item) => sum + (parseInt(item.jumlah) || 1), 0);
 
-    const totalItems = cart.reduce((sum, item) => sum + item.jumlah, 0);
-
-    if (cart.length > 0) {
-        fab.style.display = 'block';
-        badge.innerText = `${totalItems} Unit (${cart.length} Alat)`;
-        if (listCount) listCount.innerText = cart.length;
-        if (emptyWarning) emptyWarning.style.display = 'none';
-        if (btnSubmit) btnSubmit.removeAttribute('disabled');
-    } else {
-        fab.style.display = 'none';
-        badge.innerText = '0';
-        if (listCount) listCount.innerText = '0';
-        if (emptyWarning) emptyWarning.style.display = 'block';
-        if (btnSubmit) btnSubmit.setAttribute('disabled', 'disabled');
+    // 1. Update Floating Button & Counter Badge
+    if (badge) {
+        badge.innerText = totalItems;
+    }
+    if (btnLabel) {
+        btnLabel.innerText = totalItems > 0 ? `Keranjang Praktikum (${totalItems} Unit)` : 'Keranjang Praktikum';
+    }
+    if (fab) {
+        const secAlat = document.getElementById('sectionAlatLab');
+        const isRuanganTab = secAlat && secAlat.style.display === 'none';
+        if (isRuanganTab) {
+            fab.style.setProperty('display', 'none', 'important');
+        } else {
+            fab.style.removeProperty('display');
+        }
     }
 
-    // 1. Render Table Rows (jika ada tampilan table)
+    if (listCount) {
+        listCount.innerText = cart.length;
+    }
+    if (emptyWarning) {
+        emptyWarning.style.display = cart.length > 0 ? 'none' : 'block';
+    }
+    if (btnSubmit) {
+        if (cart.length > 0) {
+            btnSubmit.removeAttribute('disabled');
+        } else {
+            btnSubmit.setAttribute('disabled', 'disabled');
+        }
+    }
+
+    // 2. Render Table Rows (jika ada tampilan table checkout modal)
     if (tbody) {
         tbody.innerHTML = '';
         cart.forEach((item, index) => {
@@ -183,7 +225,7 @@ function updateCartUI() {
         });
     }
 
-    // 2. Render Offcanvas Drawer Cards (jika ada offcanvas cart)
+    // 3. Render Offcanvas Drawer Cards (jika ada offcanvas cart)
     const offcanvasList = document.getElementById('cartOffcanvasList');
     if (offcanvasList) {
         offcanvasList.innerHTML = '';
@@ -192,7 +234,7 @@ function updateCartUI() {
                 <div class="text-center py-5 text-muted">
                     <i class="bi bi-cart-x fs-1 opacity-50 d-block mb-2"></i>
                     <p class="mb-0">Keranjang praktikum masih kosong.</p>
-                    <small>Silakan pilih peralatan medis di katalog.</small>
+                    <small>Silakan pilih alat praktikum farmasi di katalog.</small>
                 </div>
             `;
         } else {
