@@ -52,37 +52,49 @@
         }
         .hero-banner-prodi {
             background: {{ $theme['gradient'] }} !important;
+            border: 1px solid {{ $theme['navbar_border'] }} !important;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.45) !important;
         }
         .auth-brand-side {
             background: {{ $theme['gradient'] }} !important;
         }
         .btn-primary {
-            background: linear-gradient(135deg, {{ $theme['primary'] }} 0%, {{ $theme['primary_dark'] }} 100%) !important;
+            background: {{ $theme['primary'] }} !important;
             border-color: {{ $theme['primary'] }} !important;
             color: {{ $theme['btn_text'] ?? '#ffffff' }} !important;
+            font-weight: 700 !important;
+            box-shadow: 0 4px 12px rgba(255, 255, 0, 0.2) !important;
         }
         .btn-primary:hover, .btn-primary:focus {
+            background: {{ $theme['primary_dark'] }} !important;
+            border-color: {{ $theme['primary_dark'] }} !important;
             color: {{ $theme['btn_text'] ?? '#ffffff' }} !important;
+            box-shadow: 0 6px 16px rgba(255, 255, 0, 0.35) !important;
         }
         .btn-outline-primary {
-            color: {{ $theme['primary'] }} !important;
+            color: {{ $theme['text_primary'] ?? $theme['primary'] }} !important;
             border-color: {{ $theme['primary'] }} !important;
+            font-weight: 600 !important;
         }
         .btn-outline-primary:hover {
             background-color: {{ $theme['primary'] }} !important;
+            border-color: {{ $theme['primary'] }} !important;
             color: {{ $theme['btn_text'] ?? '#ffffff' }} !important;
         }
         .badge-soft-primary {
             background-color: {{ $theme['badge_soft'] }} !important;
-            color: {{ $theme['primary'] }} !important;
+            border: 1px solid {{ $theme['navbar_border'] }} !important;
+            color: {{ $theme['text_primary'] ?? $theme['primary'] }} !important;
+            font-weight: 600 !important;
         }
         .text-primary {
-            color: {{ $theme['primary'] }} !important;
+            color: {{ $theme['text_primary'] ?? $theme['primary'] }} !important;
         }
         .nav-link-custom.active {
             background: {{ $theme['badge_soft'] }} !important;
             border: 1px solid {{ $theme['primary'] }} !important;
-            color: #ffffff !important;
+            color: {{ $theme['primary'] }} !important;
+            font-weight: 700 !important;
         }
         .medical-pass-header {
             background: linear-gradient(135deg, {{ $theme['primary_dark'] }}, {{ $theme['primary'] }}) !important;
@@ -97,6 +109,21 @@
             background-color: {{ $theme['primary'] }} !important;
             border-color: {{ $theme['primary'] }} !important;
             box-shadow: 0 0 16px {{ $theme['badge_soft'] }} !important;
+        }
+        .page-item.active .page-link {
+            background-color: {{ $theme['primary'] }} !important;
+            border-color: {{ $theme['primary'] }} !important;
+            color: {{ $theme['btn_text'] ?? '#000000' }} !important;
+            font-weight: 700 !important;
+            box-shadow: 0 2px 8px rgba(255, 255, 0, 0.25) !important;
+        }
+        .page-link {
+            color: #374151;
+        }
+        .page-link:hover {
+            color: #000000;
+            background-color: {{ $theme['primary_light'] ?? '#FFFFCC' }};
+            border-color: {{ $theme['primary'] }};
         }
     </style>
     @stack('styles')

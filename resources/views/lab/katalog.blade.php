@@ -11,8 +11,8 @@
                         <img src="{{ asset($pengaturan->logo_path ?? 'images/logo-stikes.png') }}" alt="Logo" height="42" style="object-fit: contain;">
                     </div>
                     <div>
-                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill small fw-semibold" style="background: rgba(255, 255, 255, 0.18); border: 1px solid rgba(255, 255, 255, 0.3); color: #ffffff;">
-                            <i class="bi bi-hospital"></i> {{ $pengaturan->nama_prodi ?? 'Prodi S1 Farmasi' }} &bull; {{ $pengaturan->nama_institusi ?? 'STIKES Panti Waluya' }}
+                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill small fw-semibold" style="background: rgba(255, 255, 0, 0.12); border: 1px solid rgba(255, 255, 0, 0.35); color: #ffffff;">
+                            <i class="bi bi-hospital" style="color: #FFFF00;"></i> {{ $pengaturan->nama_prodi ?? 'Prodi S1 Farmasi' }} &bull; {{ $pengaturan->nama_institusi ?? 'STIKES Panti Waluya' }}
                         </div>
                     </div>
                 </div>
@@ -51,8 +51,8 @@
             
             <div class="col-lg-4 mt-4 mt-lg-0 d-none d-lg-block">
                 <div class="d-flex flex-column gap-3">
-                    <div class="p-3 rounded-3 d-flex align-items-center gap-3" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25);">
-                        <div class="text-white rounded-3 p-2 fs-4 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; background: rgba(255, 255, 255, 0.25);">
+                    <div class="p-3 rounded-3 d-flex align-items-center gap-3" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 0, 0.25);">
+                        <div class="rounded-3 p-2 fs-4 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; background: rgba(255, 255, 0, 0.15); color: #FFFF00;">
                             <i class="bi bi-boxes"></i>
                         </div>
                         <div>
@@ -60,8 +60,8 @@
                             <div class="fs-5 fw-bold text-white">{{ $stats['total_tersedia'] ?? 0 }} Unit ({{ $stats['total_alat'] ?? 0 }} Jenis)</div>
                         </div>
                     </div>
-                    <div class="p-3 rounded-3 d-flex align-items-center gap-3" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25);">
-                        <div class="text-white rounded-3 p-2 fs-4 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; background: rgba(255, 255, 255, 0.25);">
+                    <div class="p-3 rounded-3 d-flex align-items-center gap-3" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 0, 0.25);">
+                        <div class="rounded-3 p-2 fs-4 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; background: rgba(255, 255, 0, 0.15); color: #FFFF00;">
                             <i class="bi bi-door-open"></i>
                         </div>
                         <div>

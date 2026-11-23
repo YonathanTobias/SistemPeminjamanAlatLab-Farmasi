@@ -52,18 +52,19 @@ class PengaturanLab extends Model
     {
         $prodi = strtolower($this->nama_prodi ?? '');
         
-        // 1. S1 Farmasi -> PURE YELLOW (#FFFF00)
+        // 1. S1 Farmasi -> DARK OBSIDIAN & ELECTRIC YELLOW (#FFFF00)
         if (str_contains($prodi, 'farmasi')) {
             return [
                 'name' => 'yellow',
                 'primary' => '#FFFF00',
-                'primary_dark' => '#CCCC00',
-                'primary_light' => '#FFFFE0',
-                'btn_text' => '#111827',
-                'gradient' => 'linear-gradient(135deg, #1c1c00 0%, #474700 35%, #7a7a00 65%, #FFFF00 100%)',
-                'navbar_bg' => 'rgba(20, 20, 0, 0.97)',
-                'navbar_border' => 'rgba(255, 255, 0, 0.4)',
-                'badge_soft' => 'rgba(255, 255, 0, 0.25)',
+                'primary_dark' => '#E6E600',
+                'primary_light' => '#FFFFCC',
+                'btn_text' => '#000000',
+                'text_primary' => '#a16207', // Gold berwibawa agar kontras tinggi & tidak silau di background putih
+                'gradient' => 'linear-gradient(135deg, #090a0f 0%, #13141b 40%, #1c1d1a 75%, #2a270c 100%)',
+                'navbar_bg' => 'rgba(10, 11, 15, 0.98)',
+                'navbar_border' => 'rgba(255, 255, 0, 0.35)',
+                'badge_soft' => 'rgba(255, 255, 0, 0.15)',
             ];
         }
         
