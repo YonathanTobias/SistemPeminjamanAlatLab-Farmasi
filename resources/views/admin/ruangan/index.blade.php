@@ -162,11 +162,11 @@
                 <div class="modal-body p-4">
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Kode Ruangan</label>
-                        <input type="text" name="kode_ruangan" class="form-control rounded-3" placeholder="Contoh: LAB-KEP-01" required>
+                        <input type="text" name="kode_ruangan" class="form-control rounded-3" placeholder="Contoh: LAB-FAR-01" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Nama Ruangan</label>
-                        <input type="text" name="nama_ruangan" class="form-control rounded-3" placeholder="Contoh: Laboratorium Keperawatan Medikal Bedah" required>
+                        <input type="text" name="nama_ruangan" class="form-control rounded-3" placeholder="Contoh: Laboratorium Farmasi & Farmakologi" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Lokasi / Gedung</label>

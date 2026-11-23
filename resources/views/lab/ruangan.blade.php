@@ -176,11 +176,11 @@
                             </label>
                             <select name="prodi" class="form-select @error('prodi') is-invalid @enderror" required>
                                 <option value="">-- Pilih Program Studi --</option>
+                                <option value="S1 Farmasi" {{ old('prodi', 'S1 Farmasi') === 'S1 Farmasi' ? 'selected' : '' }}>S1 Farmasi</option>
                                 <option value="D3 Keperawatan" {{ old('prodi') === 'D3 Keperawatan' ? 'selected' : '' }}>D3 Keperawatan</option>
                                 <option value="S1 Ilmu Keperawatan" {{ old('prodi') === 'S1 Ilmu Keperawatan' ? 'selected' : '' }}>S1 Ilmu Keperawatan</option>
                                 <option value="Profesi Ners" {{ old('prodi') === 'Profesi Ners' ? 'selected' : '' }}>Profesi Ners</option>
                                 <option value="D3 Rekam Medis & Info Kes" {{ old('prodi') === 'D3 Rekam Medis & Info Kes' ? 'selected' : '' }}>D3 Rekam Medis & Info Kes</option>
-                                <option value="S1 Farmasi" {{ old('prodi') === 'S1 Farmasi' ? 'selected' : '' }}>S1 Farmasi</option>
                                 <option value="Dosen / Instruktur Lab" {{ old('prodi') === 'Dosen / Instruktur Lab' ? 'selected' : '' }}>Dosen / Instruktur Lab</option>
                             </select>
                             @error('prodi')

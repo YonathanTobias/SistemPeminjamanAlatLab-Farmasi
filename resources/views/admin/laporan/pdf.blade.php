@@ -124,7 +124,7 @@
             </td>
             <td class="kop-title" style="text-align: center; vertical-align: middle;">
                 <h2>{{ $pengaturan->nama_institusi ?? 'STIKES Panti Waluya Malang' }}</h2>
-                <h4>{{ $pengaturan->unit_laboratorium ?? 'Unit Laboratorium Keperawatan' }} - {{ $pengaturan->nama_prodi ?? 'Prodi S1 Keperawatan' }}</h4>
+                <h4>{{ $pengaturan->unit_laboratorium ?? 'Unit Laboratorium Farmakologi & Teknologi Farmasi' }} - {{ $pengaturan->nama_prodi ?? 'Prodi S1 Farmasi' }}</h4>
                 <p>{{ $pengaturan->alamat_institusi ?? 'Jl. Yulius Usman No.62, Kasin, Kec. Klojen, Kota Malang' }} &bull; Telp: {{ $pengaturan->kontak_lab ?? '(0341) 369003' }}</p>
             </td>
         </tr>

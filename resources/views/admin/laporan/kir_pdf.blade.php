@@ -155,7 +155,7 @@
     <div class="doc-header">
         <h4 class="doc-title">KARTU INVENTARIS ALAT LABORATORIUM (KIR)</h4>
         <div class="doc-subtitle">
-            UNIT : {{ strtoupper($pengaturan->unit_laboratorium ?? 'UNIT LABORATORIUM KEPERAWATAN & KESEHATAN') }}
+            UNIT : {{ strtoupper($pengaturan->unit_laboratorium ?? 'UNIT LABORATORIUM FARMAKOLOGI & TEKNOLOGI FARMASI') }}
             @if(!empty($kategoriSelected))
                 <br>KATEGORI : {{ strtoupper($kategoriSelected) }}
             @else
@@ -211,7 +211,7 @@
                 <td style="width: 10%;"></td>
                 <td style="width: 45%; vertical-align: bottom; text-align: center;">
                     <p style="margin: 0 0 2px 0;">{{ $pengaturan->kota_dokumen ?? 'Malang' }}, {{ \Carbon\Carbon::parse($pengaturan->tanggal_dokumen ?? date('Y-m-d'))->locale('id')->translatedFormat('d F Y') }}</p>
-                    <p style="margin: 0; font-weight: bold;">Kepala Program Studi S1 Keperawatan &amp; Profesi Ners,</p>
+                    <p style="margin: 0; font-weight: bold;">Kepala Program Studi S1 Farmasi,</p>
                 </td>
             </tr>
             <!-- Baris 2: Spasi Tanda Tangan Fisik -->

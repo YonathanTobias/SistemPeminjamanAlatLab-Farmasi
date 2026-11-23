@@ -29,17 +29,12 @@
         </div>
         <p class="text-muted small mb-3">Klik salah satu tombol di bawah untuk mengisi formulir secara otomatis sesuai program studi yang menggunakan sistem ini:</p>
         <div class="d-flex flex-wrap gap-2">
-            <!-- 1. S1 Keperawatan & Profesi Ners: Orange -->
-            <button type="button" class="btn btn-sm shadow-xs fw-semibold" style="background: #fff7ed; color: #c2410c; border: 1.5px solid #f97316;" onclick="applyPreset('s1_kep_ners')">
-                <i class="bi bi-award-fill" style="color: #ea580c;"></i> S1 Keperawatan & Profesi Ners
-            </button>
-
-            <!-- 2. S1 Farmasi: Hijau -->
+            <!-- 1. S1 Farmasi: Hijau -->
             <button type="button" class="btn btn-sm shadow-xs fw-semibold" style="background: #ecfdf5; color: #065f46; border: 1.5px solid #10b981;" onclick="applyPreset('s1_farmasi')">
                 <i class="bi bi-capsule" style="color: #059669;"></i> S1 Farmasi
             </button>
 
-            <!-- 3. D4 MIK: Ungu -->
+            <!-- 2. D4 MIK: Ungu -->
             <button type="button" class="btn btn-sm shadow-xs fw-semibold" style="background: #faf5ff; color: #6b21a8; border: 1.5px solid #a855f7;" onclick="applyPreset('d4_mik')">
                 <i class="bi bi-file-earmark-medical-fill" style="color: #9333ea;"></i> D4 MIK
             </button>
@@ -73,7 +68,7 @@
                         <label class="form-label fw-bold small text-dark">
                             <i class="bi bi-mortarboard text-primary"></i> Nama Program Studi
                         </label>
-                        <input type="text" id="inp_nama_prodi" name="nama_prodi" class="form-control" value="{{ old('nama_prodi', $pengaturan->nama_prodi ?? 'Prodi S1 Keperawatan') }}" placeholder="Contoh: Prodi S1 Keperawatan" required>
+                        <input type="text" id="inp_nama_prodi" name="nama_prodi" class="form-control" value="{{ old('nama_prodi', $pengaturan->nama_prodi ?? 'Prodi S1 Farmasi') }}" placeholder="Contoh: Prodi S1 Farmasi" required>
                         <div class="form-text small">Nama program studi pemilik laboratorium ini.</div>
                     </div>
 
@@ -88,7 +83,7 @@
                         <label class="form-label fw-bold small text-dark">
                             <i class="bi bi-hospital text-primary"></i> Nama Unit Laboratorium
                         </label>
-                        <input type="text" id="inp_unit_lab" name="unit_laboratorium" class="form-control" value="{{ old('unit_laboratorium', $pengaturan->unit_laboratorium ?? 'Unit Laboratorium Keperawatan & Kesehatan') }}" placeholder="Contoh: Unit Laboratorium Keperawatan" required>
+                        <input type="text" id="inp_unit_lab" name="unit_laboratorium" class="form-control" value="{{ old('unit_laboratorium', $pengaturan->unit_laboratorium ?? 'Unit Laboratorium Farmakologi & Teknologi Farmasi') }}" placeholder="Contoh: Unit Laboratorium Farmasi" required>
                         <div class="form-text small">Tampil pada Kop Surat resmi laporan PDF dan footer.</div>
                     </div>
                 </div>
@@ -129,10 +124,10 @@
                         </label>
                         <div class="row g-2">
                             <div class="col-7">
-                                <input type="text" id="inp_kepala_lab" name="kepala_lab" class="form-control form-control-sm" value="{{ old('kepala_lab', $pengaturan->kepala_lab ?? 'Ns. Wening Prabawati, M.Kep.') }}" placeholder="Nama beserta gelar" required>
+                                <input type="text" id="inp_kepala_lab" name="kepala_lab" class="form-control form-control-sm" value="{{ old('kepala_lab', $pengaturan->kepala_lab ?? 'apt. Fransiska Dewi, M.Farm.') }}" placeholder="Nama beserta gelar" required>
                             </div>
                             <div class="col-5">
-                                <input type="text" id="inp_nip_kepala_lab" name="nip_kepala_lab" class="form-control form-control-sm font-monospace" value="{{ old('nip_kepala_lab', $pengaturan->nip_kepala_lab ?? '198205142010122001') }}" placeholder="NIP Kepala Lab">
+                                <input type="text" id="inp_nip_kepala_lab" name="nip_kepala_lab" class="form-control form-control-sm font-monospace" value="{{ old('nip_kepala_lab', $pengaturan->nip_kepala_lab ?? '199002152016032004') }}" placeholder="NIP Kepala Lab">
                             </div>
                         </div>
                     </div>
@@ -153,7 +148,7 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-bold small text-dark">
-                            <i class="bi bi-mortarboard text-success"></i> Kepala Program Studi S1 Keperawatan &amp; Profesi Ners
+                            <i class="bi bi-mortarboard text-success"></i> Kepala Program Studi S1 Farmasi
                         </label>
                         <div class="row g-2">
                             <div class="col-7">

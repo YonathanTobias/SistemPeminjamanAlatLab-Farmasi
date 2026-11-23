@@ -18,11 +18,11 @@ class PengaturanLab extends Model
             ['id' => 1],
             [
                 'nama_sistem'       => 'Sistem Peminjaman Alat Lab',
-                'nama_prodi'        => 'Prodi S1 Keperawatan & Profesi Ners',
+                'nama_prodi'        => 'Prodi S1 Farmasi',
                 'nama_institusi'    => 'STIKES Panti Waluya Malang',
-                'unit_laboratorium' => 'Unit Laboratorium Keperawatan Medikal Bedah & OSCE Center',
-                'kepala_lab'        => 'Ns. Wening Prabawati, M.Kep.',
-                'nip_kepala_lab'    => '198205142010122001',
+                'unit_laboratorium' => 'Unit Laboratorium Farmakologi & Teknologi Farmasi',
+                'kepala_lab'        => 'apt. Fransiska Dewi, M.Farm.',
+                'nip_kepala_lab'    => '199002152016032004',
                 'nama_ketua'        => 'Wibowo, S.Kep., Ns. M.Biomed',
                 'nip_ketua'         => '1283/A',
                 'nama_kabag_sarpras'=> 'Petrus Tobias, S.Kom.',
@@ -52,21 +52,7 @@ class PengaturanLab extends Model
     {
         $prodi = strtolower($this->nama_prodi ?? '');
         
-        // 1. S1 Keperawatan & Profesi Ners -> VIBRANT SUNSET ORANGE
-        if (str_contains($prodi, 'keperawatan') || str_contains($prodi, 'ners')) {
-            return [
-                'name' => 'orange',
-                'primary' => '#ea580c',
-                'primary_dark' => '#c2410c',
-                'primary_light' => '#fff7ed',
-                'gradient' => 'linear-gradient(135deg, #431407 0%, #7c2d12 35%, #c2410c 70%, #ea580c 100%)',
-                'navbar_bg' => 'rgba(38, 14, 6, 0.96)',
-                'navbar_border' => 'rgba(234, 88, 12, 0.25)',
-                'badge_soft' => 'rgba(234, 88, 12, 0.15)',
-            ];
-        }
-        
-        // 2. S1 Farmasi -> BOTANICAL EMERALD GREEN
+        // 1. S1 Farmasi -> BOTANICAL EMERALD GREEN
         if (str_contains($prodi, 'farmasi')) {
             return [
                 'name' => 'green',
@@ -77,6 +63,20 @@ class PengaturanLab extends Model
                 'navbar_bg' => 'rgba(4, 30, 24, 0.96)',
                 'navbar_border' => 'rgba(16, 185, 129, 0.25)',
                 'badge_soft' => 'rgba(16, 185, 129, 0.15)',
+            ];
+        }
+        
+        // 2. S1 Keperawatan & Profesi Ners -> VIBRANT SUNSET ORANGE
+        if (str_contains($prodi, 'keperawatan') || str_contains($prodi, 'ners')) {
+            return [
+                'name' => 'orange',
+                'primary' => '#ea580c',
+                'primary_dark' => '#c2410c',
+                'primary_light' => '#fff7ed',
+                'gradient' => 'linear-gradient(135deg, #431407 0%, #7c2d12 35%, #c2410c 70%, #ea580c 100%)',
+                'navbar_bg' => 'rgba(38, 14, 6, 0.96)',
+                'navbar_border' => 'rgba(234, 88, 12, 0.25)',
+                'badge_soft' => 'rgba(234, 88, 12, 0.15)',
             ];
         }
 

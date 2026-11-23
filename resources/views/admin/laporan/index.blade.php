@@ -586,10 +586,10 @@
                         </div>
                     </div>
 
-                    <!-- Baris 2: Kepala Program Studi S1 Keperawatan & Profesi Ners -->
+                    <!-- Baris 2: Kepala Program Studi S1 Farmasi -->
                     <div class="card bg-light border-0 rounded-3 p-3 mb-3">
                         <h6 class="fw-bold text-dark mb-2.5">
-                            <i class="bi bi-mortarboard-fill text-success me-1.5"></i> 2. Kepala Program Studi S1 Keperawatan &amp; Profesi Ners
+                            <i class="bi bi-mortarboard-fill text-success me-1.5"></i> 2. Kepala Program Studi S1 Farmasi
                         </h6>
                         <div class="row g-2">
                             <div class="col-md-7">
@@ -675,7 +675,7 @@
             KARTU INVENTARIS ALAT LABORATORIUM (KIR)
         </h5>
         <div class="fw-semibold small text-uppercase" style="font-family: 'Times New Roman', Times, serif; font-size: 0.82rem;">
-            UNIT : {{ strtoupper($pengaturan->unit_laboratorium ?? 'UNIT LABORATORIUM KEPERAWATAN & KESEHATAN') }}
+            UNIT : {{ strtoupper($pengaturan->unit_laboratorium ?? 'UNIT LABORATORIUM FARMAKOLOGI & TEKNOLOGI FARMASI') }}
             @if(request('kategori_kir'))
                 <br>KATEGORI PRAKTIKUM : {{ strtoupper(request('kategori_kir')) }}
             @else
@@ -731,7 +731,7 @@
                 <td style="width: 10%; border: none;"></td>
                 <td style="width: 45%; vertical-align: bottom; text-align: center; border: none; padding: 0;">
                     <p class="mb-0 print-tgl-dokumen" style="font-size: 0.85rem;">{{ $pengaturan->kota_dokumen ?? 'Malang' }}, {{ \Carbon\Carbon::parse($pengaturan->tanggal_dokumen ?? date('Y-m-d'))->locale('id')->translatedFormat('d F Y') }}</p>
-                    <p class="fw-bold mb-0" style="font-size: 0.85rem;">Kepala Program Studi S1 Keperawatan &amp; Profesi Ners,</p>
+                    <p class="fw-bold mb-0" style="font-size: 0.85rem;">Kepala Program Studi S1 Farmasi,</p>
                 </td>
             </tr>
             <!-- Baris 2: Spasi TTD -->

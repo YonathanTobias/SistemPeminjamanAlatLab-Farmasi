@@ -40,7 +40,7 @@ class AsetLabExport implements FromCollection, WithHeadings, WithMapping, WithTi
     public function headings(): array
     {
         $namaInstitusi = strtoupper($this->pengaturan->nama_institusi ?? 'SEKOLAH TINGGI ILMU KESEHATAN PANTI WALUYA MALANG');
-        $unitLab       = strtoupper($this->pengaturan->unit_laboratorium ?? 'UNIT LABORATORIUM KEPERAWATAN & KESEHATAN');
+        $unitLab       = strtoupper($this->pengaturan->unit_laboratorium ?? 'UNIT LABORATORIUM FARMAKOLOGI & TEKNOLOGI FARMASI');
 
         return [
             ['KARTU INVENTARIS ALAT LABORATORIUM (KIR)'],

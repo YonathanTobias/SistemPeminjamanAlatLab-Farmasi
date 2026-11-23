@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\AlatLab;
 use App\Models\PeminjamanLab;
 use App\Models\PeminjamanLabDetail;
+use App\Models\PengaturanLab;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -20,6 +21,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // 0. Pengaturan Default Laboratorium Farmasi
+        PengaturanLab::getPengaturan();
+
         // 1. Akun Admin IT (Super Admin)
         User::updateOrCreate(
             ['email' => 'it@stikes.ac.id'],
@@ -34,7 +38,7 @@ class DatabaseSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'laboran@stikes.ac.id'],
             [
-                'name' => 'Petugas Laboran Keperawatan',
+                'name' => 'Petugas Laboran Farmasi',
                 'password' => Hash::make('admin123'),
                 'role' => 'laboran',
             ]

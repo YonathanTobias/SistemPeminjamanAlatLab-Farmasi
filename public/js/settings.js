@@ -16,16 +16,6 @@ function previewLogo(input) {
 
 // Quick Presets Helper
 const presets = {
-    's1_kep_ners': {
-        nama_sistem: 'Sistem Peminjaman Alat Lab Prodi S1 Keperawatan & Profesi Ners',
-        nama_prodi: 'Prodi S1 Keperawatan & Profesi Ners',
-        nama_institusi: 'STIKES Panti Waluya Malang',
-        unit_lab: 'Unit Laboratorium Keperawatan Medikal Bedah & OSCE Center',
-        kepala_lab: 'Ns. Wening Prabawati, M.Kep.',
-        nip_kepala_lab: '198205142010122001',
-        alamat: 'Jl. Yulius Usman No.62, Kasin, Kec. Klojen, Kota Malang, Jawa Timur 65117',
-        kontak: '(0341) 369003'
-    },
     's1_farmasi': {
         nama_sistem: 'Sistem Peminjaman Alat Laboratorium Farmasi',
         nama_prodi: 'Prodi S1 Farmasi',

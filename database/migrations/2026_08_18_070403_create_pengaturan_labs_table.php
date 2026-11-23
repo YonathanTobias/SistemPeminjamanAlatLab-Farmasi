@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('pengaturan_labs', function (Blueprint $table) {
             $table->id();
             $table->string('nama_sistem')->default('Sistem Peminjaman Alat Lab');
-            $table->string('nama_prodi')->default('Prodi S1 Ilmu Keperawatan');
+            $table->string('nama_prodi')->default('Prodi S1 Farmasi');
             $table->string('nama_institusi')->default('STIKES Panti Waluya Malang');
-            $table->string('unit_laboratorium')->default('Unit Laboratorium Keperawatan & Kesehatan');
-            $table->string('kepala_lab')->default('Ns. Wening Prabawati, M.Kep.');
-            $table->string('nip_kepala_lab')->default('198205142010122001');
+            $table->string('unit_laboratorium')->default('Unit Laboratorium Farmakologi & Teknologi Farmasi');
+            $table->string('kepala_lab')->default('apt. Fransiska Dewi, M.Farm.');
+            $table->string('nip_kepala_lab')->default('199002152016032004');
             $table->string('alamat_institusi')->default('Jl. Yulius Usman No.62, Kasin, Kec. Klojen, Kota Malang, Jawa Timur 65117');
             $table->string('kontak_lab')->default('(0341) 369003');
             $table->string('logo_path')->nullable();

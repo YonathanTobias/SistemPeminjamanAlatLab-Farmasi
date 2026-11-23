@@ -140,7 +140,7 @@ class LabController extends Controller
                 'nama_peminjam'       => $request->nama_peminjam,
                 'nim_nip'             => $request->nim_nip,
                 'prodi'               => $request->prodi,
-                'keperluan'           => $request->keperluan ?? 'Praktikum Laboratorium Keperawatan',
+                'keperluan'           => $request->keperluan ?? 'Praktikum Laboratorium Farmasi',
                 'tgl_pinjam'          => $request->tgl_pinjam,
                 'tgl_kembali_rencana' => $request->tgl_kembali_rencana,
                 'status'              => 'Menunggu',
