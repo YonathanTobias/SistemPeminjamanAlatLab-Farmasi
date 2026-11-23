@@ -589,7 +589,7 @@
                     <!-- Baris 2: Kepala Program Studi S1 Farmasi -->
                     <div class="card bg-light border-0 rounded-3 p-3 mb-3">
                         <h6 class="fw-bold text-dark mb-2.5">
-                            <i class="bi bi-mortarboard-fill text-success me-1.5"></i> 2. Kepala Program Studi S1 Farmasi
+                            <i class="bi bi-mortarboard-fill text-warning me-1.5"></i> 2. Kepala Program Studi S1 Farmasi
                         </h6>
                         <div class="row g-2">
                             <div class="col-md-7">
