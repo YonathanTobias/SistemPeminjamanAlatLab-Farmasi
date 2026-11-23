@@ -22,6 +22,11 @@ class RuanganController extends Controller
     // Submit Booking Ruangan oleh Pengguna Publik
     public function storeBookingPublik(Request $request)
     {
+        // 0. Honeypot Anti-Bot Trap: Jika field terisi, pasti bot scanner otomatis
+        if ($request->filled('_hp_security_check') || !empty($request->input('_hp_security_check'))) {
+            return back()->with('error', 'Aktivitas otomatisasi (Bot) terdeteksi dan diblokir.');
+        }
+
         $request->validate([
             'ruangan_id'    => 'required|exists:ruangans,id',
             'nama_peminjam' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s\.\,\'\-]+$/'],

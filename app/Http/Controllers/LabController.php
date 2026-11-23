@@ -95,6 +95,11 @@ class LabController extends Controller
     // Form Pengajuan Pinjam Multi-Alat Publik (Keranjang Praktikum)
     public function storePeminjamanPublik(Request $request)
     {
+        // 0. Honeypot Anti-Bot Trap: Jika field terisi, pasti bot scanner otomatis
+        if ($request->filled('_hp_security_check') || !empty($request->input('_hp_security_check'))) {
+            return back()->with('error', 'Aktivitas otomatisasi (Bot) terdeteksi dan diblokir.');
+        }
+
         $request->validate([
             'nama_peminjam'       => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s\.\,\'\-]+$/'],
             'nim_nip'             => ['required', 'string', 'max:50', 'regex:/^[a-zA-Z0-9\.\-\/\_]+$/'],

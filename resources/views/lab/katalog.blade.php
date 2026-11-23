@@ -421,6 +421,10 @@
         <div class="modal-content">
             <form action="{{ route('lab.pinjam.store') }}" method="POST" id="formCheckoutPinjam" onsubmit="return validateCartSubmission()">
                 @csrf
+                <!-- Honeypot Anti-Bot Trap (Hidden from humans, traps bots) -->
+                <div style="display:none !important; visibility:hidden !important; position:absolute !important; left:-9999px !important;" aria-hidden="true">
+                    <input type="text" name="_hp_security_check" tabindex="-1" autocomplete="off" value="">
+                </div>
                 
                 <div class="modal-header bg-light">
                     <div>
@@ -538,6 +542,10 @@
         <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
             <form action="{{ route('lab.ruangan.store') }}" method="POST" id="formPengajuanRuangan">
                 @csrf
+                <!-- Honeypot Anti-Bot Trap (Hidden from humans, traps bots) -->
+                <div style="display:none !important; visibility:hidden !important; position:absolute !important; left:-9999px !important;" aria-hidden="true">
+                    <input type="text" name="_hp_security_check" tabindex="-1" autocomplete="off" value="">
+                </div>
                 
                 <div class="modal-header bg-light">
                     <div>
