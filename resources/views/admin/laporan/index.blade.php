@@ -1,6 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .filter-label {
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: #475569;
+        margin-bottom: 0.35rem;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        height: 18px;
+        white-space: nowrap;
+    }
+    .filter-control {
+        height: 38px !important;
+        font-size: 0.85rem !important;
+        border-radius: 0.5rem !important;
+    }
+    .filter-addon {
+        height: 38px !important;
+        border-top-left-radius: 0.5rem !important;
+        border-bottom-left-radius: 0.5rem !important;
+    }
+    [data-bs-theme="dark"] .filter-label {
+        color: #cbd5e1 !important;
+    }
+    [data-bs-theme="dark"] .filter-addon {
+        background-color: #1e293b !important;
+        border-color: #334155 !important;
+        color: #94a3b8 !important;
+    }
+</style>
 <!-- Page Header (Web Only) -->
 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4 no-print d-print-none">
     <div>
@@ -116,10 +147,10 @@
                 <div class="row g-2.5 align-items-center justify-content-between">
                     <!-- Sisi Kiri: Filter Kategori & Search Bar -->
                     <div class="col-xxl-5 col-xl-5 col-12">
-                        <div class="d-flex align-items-center gap-2 flex-wrap flex-sm-nowrap">
+                        <div class="d-flex align-items-center gap-2">
                             <!-- Filter Kategori -->
-                            <div style="flex: 1 1 auto; min-width: 180px;">
-                                <select name="kategori_kir" class="form-select text-truncate" onchange="window.location.href='{{ route('admin.laporan.index') }}?tab=kir&kategori_kir=' + encodeURIComponent(this.value)" title="Pilih Kategori untuk KIR">
+                            <div class="flex-grow-1" style="min-width: 170px;">
+                                <select name="kategori_kir" class="form-select text-truncate filter-control" onchange="window.location.href='{{ route('admin.laporan.index') }}?tab=kir&kategori_kir=' + encodeURIComponent(this.value)" title="Pilih Kategori untuk KIR">
                                     <option value="">-- SEMUA KATEGORI (REKAP GLOBAL) --</option>
                                     @foreach($kategoriList as $k)
                                         @php
@@ -133,14 +164,14 @@
                             </div>
 
                             <!-- Search Bar Realtime -->
-                            <div class="input-group" style="width: 200px; flex-shrink: 0;">
-                                <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-search"></i></span>
-                                <input type="text" id="tableSearchKIR" class="form-control border-start-0 ps-1" placeholder="Cari nama/kode..." oninput="onKIRTableFilter()">
+                            <div class="input-group" style="width: 190px; flex-shrink: 0;">
+                                <span class="input-group-text bg-light border-end-0 text-muted filter-addon"><i class="bi bi-search"></i></span>
+                                <input type="text" id="tableSearchKIR" class="form-control border-start-0 ps-1 filter-control" placeholder="Cari nama/kode..." oninput="onKIRTableFilter()">
                                 <button class="btn btn-outline-secondary border-start-0 text-muted d-none" type="button" id="btnClearSearchKIR" onclick="clearKIRSearch()" title="Hapus"><i class="bi bi-x"></i></button>
                             </div>
 
                             <!-- Reset Filter -->
-                            <a href="{{ route('admin.laporan.index') }}?tab=kir" class="btn btn-light border text-muted px-2.5 py-2 rounded-3 flex-shrink-0" title="Reset Filter">
+                            <a href="{{ route('admin.laporan.index') }}?tab=kir" class="btn btn-light border text-muted px-2.5 filter-control flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 38px;" title="Reset Filter">
                                 <i class="bi bi-arrow-counterclockwise"></i>
                             </a>
                         </div>
@@ -150,33 +181,33 @@
                     <div class="col-xxl-7 col-xl-7 col-12">
                         <div class="d-flex align-items-center justify-content-xl-end gap-2 flex-wrap">
                             <!-- Quick Tanggal TTD -->
-                            <div class="d-inline-flex align-items-center gap-1.5 bg-light border rounded-3 px-2.5 py-1.5" title="Tanggal TTD Dokumen KIR">
+                            <div class="d-inline-flex align-items-center gap-1.5 bg-light border rounded-3 px-2.5 filter-control" title="Tanggal TTD Dokumen KIR">
                                 <span class="text-muted small fw-semibold text-nowrap">Tgl TTD:</span>
                                 <input type="date" id="quickTanggalKIR" class="form-control form-control-sm border-0 bg-transparent p-0 fw-bold font-monospace" style="width: 120px; font-size: 0.8rem; box-shadow: none;" value="{{ $pengaturan->tanggal_dokumen ? \Carbon\Carbon::parse($pengaturan->tanggal_dokumen)->format('Y-m-d') : date('Y-m-d') }}" onchange="handleQuickDateKIR(this)" aria-label="Tanggal Dokumen">
                             </div>
 
                             <!-- Atur Penandatangan -->
-                            <button type="button" class="btn btn-outline-primary btn-sm fw-semibold px-3 py-2 rounded-3 d-inline-flex align-items-center text-nowrap shadow-xs" data-bs-toggle="modal" data-bs-target="#modalPengaturanTTD">
-                                <i class="bi bi-pen me-1"></i> <span>Atur TTD</span>
+                            <button type="button" class="btn btn-outline-primary fw-semibold px-3 filter-control d-inline-flex align-items-center text-nowrap shadow-xs" data-bs-toggle="modal" data-bs-target="#modalPengaturanTTD">
+                                <i class="bi bi-pen me-1.5"></i> <span>Atur TTD</span>
                             </button>
 
-                            <!-- Cetak Lembar KIR Langsung A4 -->
-                            <button type="button" onclick="triggerPrintTab('kir')" class="btn btn-dark btn-sm fw-bold px-3 py-2 rounded-3 d-inline-flex align-items-center gap-1.5 shadow-sm text-nowrap" title="Cetak Dokumen KIR Format HVS A4">
-                                <i class="bi bi-printer"></i>
-                                <span>Cetak KIR (A4)</span>
-                            </button>
+                            <!-- Grouped Action Buttons: Cetak A4, PDF, Excel -->
+                            <div class="btn-group shadow-xs" role="group" aria-label="Aksi Cetak dan Export KIR">
+                                <button type="button" onclick="triggerPrintTab('kir')" class="btn btn-dark fw-bold px-3 filter-control d-inline-flex align-items-center gap-1.5 text-nowrap" title="Cetak Dokumen KIR Format HVS A4">
+                                    <i class="bi bi-printer"></i>
+                                    <span>Cetak A4</span>
+                                </button>
 
-                            <!-- Export PDF Resmi -->
-                            <a href="{{ route('admin.laporan.kir.pdf', ['kategori' => request('kategori_kir')]) }}" target="_blank" class="btn btn-danger btn-sm fw-bold px-3 py-2 rounded-3 d-inline-flex align-items-center gap-1.5 shadow-sm text-nowrap" title="Unduh format PDF dokumen KIR resmi">
-                                <i class="bi bi-file-earmark-pdf-fill"></i>
-                                <span>Export PDF</span>
-                            </a>
+                                <a href="{{ route('admin.laporan.kir.pdf', ['kategori' => request('kategori_kir')]) }}" target="_blank" class="btn btn-danger fw-bold px-3 filter-control d-inline-flex align-items-center gap-1.5 text-nowrap" title="Unduh format PDF dokumen KIR resmi">
+                                    <i class="bi bi-file-earmark-pdf-fill"></i>
+                                    <span>PDF</span>
+                                </a>
 
-                            <!-- Export Excel Resmi -->
-                            <a href="{{ route('admin.laporan.kir.excel', ['kategori' => request('kategori_kir')]) }}" class="btn btn-success btn-sm fw-bold px-3 py-2 rounded-3 d-inline-flex align-items-center gap-1.5 shadow-sm text-nowrap" title="Unduh rekap inventaris ke spreadsheet Excel .xlsx">
-                                <i class="bi bi-file-earmark-excel-fill"></i>
-                                <span>Export Excel</span>
-                            </a>
+                                <a href="{{ route('admin.laporan.kir.excel', ['kategori' => request('kategori_kir')]) }}" class="btn btn-success fw-bold px-3 filter-control d-inline-flex align-items-center gap-1.5 text-nowrap" title="Unduh rekap inventaris ke spreadsheet Excel .xlsx">
+                                    <i class="bi bi-file-earmark-excel-fill"></i>
+                                    <span>Excel</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -329,32 +360,11 @@
         </div>
 
         <!-- Filter Card Peminjaman -->
-        <style>
-            .filter-label {
-                font-size: 0.78rem;
-                font-weight: 700;
-                color: #475569;
-                margin-bottom: 0.35rem;
-                display: flex;
-                align-items: center;
-                gap: 0.35rem;
-                height: 18px;
-                white-space: nowrap;
-            }
-            .filter-control {
-                height: 38px !important;
-                font-size: 0.85rem !important;
-                border-radius: 0.5rem !important;
-            }
-            [data-bs-theme="dark"] .filter-label {
-                color: #cbd5e1 !important;
-            }
-        </style>
         <div class="card border-0 rounded-4 shadow-sm mb-4 no-print">
             <div class="card-body p-3 p-md-4">
                 <form action="{{ route('admin.laporan.index') }}" method="GET" class="row g-2.5 align-items-end">
                     <input type="hidden" name="tab" value="peminjaman">
-                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
                         <label class="filter-label">
                             <i class="bi bi-calendar-event text-primary"></i> Tahun Laporan
                         </label>
@@ -367,19 +377,19 @@
                             <option value="all" {{ (string)$selectedYear === 'all' ? 'selected' : '' }}>-- Semua Tahun --</option>
                         </select>
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
                         <label class="filter-label">
                             <i class="bi bi-calendar3 text-primary"></i> Periode Mulai Pinjam
                         </label>
                         <input type="date" name="tgl_mulai" class="form-control filter-control" value="{{ request('tgl_mulai') }}">
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
                         <label class="filter-label">
                             <i class="bi bi-calendar-check text-primary"></i> Periode Selesai Pinjam
                         </label>
                         <input type="date" name="tgl_selesai" class="form-control filter-control" value="{{ request('tgl_selesai') }}">
                     </div>
-                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                         <label class="filter-label">
                             <i class="bi bi-funnel text-primary"></i> Filter Status
                         </label>
@@ -391,13 +401,13 @@
                             <option value="Ditolak" {{ request('status') == 'Ditolak' ? 'selected' : '' }}>❌ Ditolak</option>
                         </select>
                     </div>
-                    <div class="col-xl-2 col-lg-12 col-md-8 col-sm-12 d-flex gap-2">
-                        <label class="filter-label d-none d-xl-flex">&nbsp;</label>
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 d-flex gap-2">
+                        <label class="filter-label d-none d-md-flex">&nbsp;</label>
                         <button type="submit" class="btn btn-primary filter-control flex-grow-1 shadow-xs">
                             <i class="bi bi-filter"></i> Filter
                         </button>
                         @if(request()->hasAny(['tgl_mulai', 'tgl_selesai', 'status']) || request('tahun') == 'all' || (request()->has('tahun') && request('tahun') != date('Y')))
-                            <a href="{{ route('admin.laporan.index') }}?tab=peminjaman" class="btn btn-outline-secondary filter-control px-3" title="Reset Filter (Kembali ke Tahun Ini)">
+                            <a href="{{ route('admin.laporan.index') }}?tab=peminjaman" class="btn btn-outline-secondary filter-control px-3 d-flex align-items-center justify-content-center" title="Reset Filter (Kembali ke Tahun Ini)">
                                 <i class="bi bi-arrow-counterclockwise"></i>
                             </a>
                         @endif
@@ -522,14 +532,14 @@
     <div class="tab-pane fade {{ request('tab') == 'ruangan' ? 'show active' : '' }}" id="tab-ruangan" role="tabpanel">
         <!-- Filter Card Ruangan -->
         <div class="card border-0 rounded-4 shadow-sm mb-4 no-print">
-            <div class="card-body p-4">
-                <form action="{{ route('admin.laporan.index') }}" method="GET" class="row g-3 align-items-end">
+            <div class="card-body p-3 p-md-4">
+                <form action="{{ route('admin.laporan.index') }}" method="GET" class="row g-2.5 align-items-end">
                     <input type="hidden" name="tab" value="ruangan">
-                    <div class="col-md-3">
-                        <label class="form-label small text-muted mb-1">
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                        <label class="filter-label">
                             <i class="bi bi-calendar-event text-primary"></i> Tahun Laporan Ruangan
                         </label>
-                        <select name="tahun_ruangan" class="form-select form-select-sm" onchange="this.form.submit()">
+                        <select name="tahun_ruangan" class="form-select filter-control" onchange="this.form.submit()">
                             @foreach($availableYearsRuangan as $yr)
                                 <option value="{{ $yr }}" {{ (string)$selectedYearRuangan === (string)$yr ? 'selected' : '' }}>
                                     Tahun {{ $yr }} {{ $yr == date('Y') ? '(Tahun Ini)' : '' }}
@@ -538,24 +548,25 @@
                             <option value="all" {{ (string)$selectedYearRuangan === 'all' ? 'selected' : '' }}>-- Semua Tahun --</option>
                         </select>
                     </div>
-                    <div class="col-md-3">
-                        <label class="form-label small text-muted mb-1">
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                        <label class="filter-label">
                             <i class="bi bi-calendar3 text-primary"></i> Periode Mulai Pinjam
                         </label>
-                        <input type="date" name="tgl_mulai_ruangan" class="form-control form-control-sm" value="{{ request('tgl_mulai_ruangan') }}">
+                        <input type="date" name="tgl_mulai_ruangan" class="form-control filter-control" value="{{ request('tgl_mulai_ruangan') }}">
                     </div>
-                    <div class="col-md-3">
-                        <label class="form-label small text-muted mb-1">
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                        <label class="filter-label">
                             <i class="bi bi-calendar-check text-primary"></i> Periode Selesai Pinjam
                         </label>
-                        <input type="date" name="tgl_selesai_ruangan" class="form-control form-control-sm" value="{{ request('tgl_selesai_ruangan') }}">
+                        <input type="date" name="tgl_selesai_ruangan" class="form-control filter-control" value="{{ request('tgl_selesai_ruangan') }}">
                     </div>
-                    <div class="col-md-3 d-flex gap-2">
-                        <button type="submit" class="btn btn-sm btn-primary flex-grow-1">
-                            <i class="bi bi-filter"></i> Filter Data
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 d-flex gap-2">
+                        <label class="filter-label d-none d-md-flex">&nbsp;</label>
+                        <button type="submit" class="btn btn-primary filter-control flex-grow-1 shadow-xs">
+                            <i class="bi bi-filter"></i> Filter
                         </button>
                         @if(request()->hasAny(['tgl_mulai_ruangan', 'tgl_selesai_ruangan', 'status_ruangan']) || request('tahun_ruangan') == 'all' || (request()->has('tahun_ruangan') && request('tahun_ruangan') != date('Y')))
-                            <a href="{{ route('admin.laporan.index') }}?tab=ruangan" class="btn btn-sm btn-outline-secondary" title="Reset Filter (Kembali ke Tahun Ini)">
+                            <a href="{{ route('admin.laporan.index') }}?tab=ruangan" class="btn btn-outline-secondary filter-control px-3 d-flex align-items-center justify-content-center" title="Reset Filter (Kembali ke Tahun Ini)">
                                 <i class="bi bi-arrow-counterclockwise"></i>
                             </a>
                         @endif

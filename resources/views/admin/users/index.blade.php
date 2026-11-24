@@ -56,24 +56,24 @@
     <div class="card-body p-3 p-md-4">
         <form action="{{ route('admin.users.index') }}" method="GET" class="row g-2 align-items-center">
             <div class="col-md-6">
-                <div class="input-group input-group-sm">
-                    <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
-                    <input type="text" name="search" class="form-control form-control-sm" placeholder="Cari nama atau email pengguna..." value="{{ request('search') }}">
+                <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0 text-muted" style="height: 38px; border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem;"><i class="bi bi-search"></i></span>
+                    <input type="text" name="search" class="form-control border-start-0 ps-1" style="height: 38px; border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; font-size: 0.85rem;" placeholder="Cari nama atau email pengguna..." value="{{ request('search') }}">
                 </div>
             </div>
             <div class="col-md-4">
-                <select name="role" class="form-select form-select-sm">
+                <select name="role" class="form-select" style="height: 38px; border-radius: 0.5rem; font-size: 0.85rem;">
                     <option value="">-- Semua Hak Akses / Role --</option>
                     <option value="admin_it" {{ request('role') == 'admin_it' ? 'selected' : '' }}>🛡️ Admin IT</option>
                     <option value="laboran" {{ request('role') == 'laboran' ? 'selected' : '' }}>🔬 Petugas Laboran</option>
                 </select>
             </div>
-            <div class="col-md-2 d-flex gap-1">
-                <button type="submit" class="btn btn-sm btn-primary w-100">
+            <div class="col-md-2 d-flex gap-1.5">
+                <button type="submit" class="btn btn-primary flex-grow-1 shadow-xs d-flex align-items-center justify-content-center gap-1.5" style="height: 38px; border-radius: 0.5rem; font-size: 0.85rem;">
                     <i class="bi bi-funnel-fill"></i> Filter
                 </button>
                 @if(request()->anyFilled(['search', 'role']))
-                    <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-outline-secondary" title="Reset Filter">
+                    <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary d-flex align-items-center justify-content-center" style="height: 38px; width: 38px; border-radius: 0.5rem; flex-shrink: 0;" title="Reset Filter">
                         <i class="bi bi-arrow-counterclockwise"></i>
                     </a>
                 @endif

@@ -84,19 +84,19 @@
     <div class="card-body p-3 p-md-4">
         <form action="{{ route('admin.alat.index') }}" method="GET" class="row g-2 align-items-center">
             <div class="col-md-10">
-                <div class="input-group input-group-sm">
-                    <span class="input-group-text bg-light border-end-0">
-                        <i class="bi bi-search text-muted"></i>
+                <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0 text-muted" style="height: 38px; border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem;">
+                        <i class="bi bi-search"></i>
                     </span>
-                    <input type="text" name="search" class="form-control border-start-0 ps-0" placeholder="Cari berdasarkan nama alat farmasi atau kode (contoh: TEK-001, Spektrofotometer)..." value="{{ request('search') }}">
+                    <input type="text" name="search" class="form-control border-start-0 ps-1" style="height: 38px; border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; font-size: 0.85rem;" placeholder="Cari berdasarkan nama alat farmasi atau kode (contoh: TEK-001, Spektrofotometer)..." value="{{ request('search') }}">
                 </div>
             </div>
-            <div class="col-md-2 d-flex gap-1">
-                <button type="submit" class="btn btn-sm btn-primary w-100">
+            <div class="col-md-2 d-flex gap-1.5">
+                <button type="submit" class="btn btn-primary flex-grow-1 shadow-xs d-flex align-items-center justify-content-center gap-1.5" style="height: 38px; border-radius: 0.5rem; font-size: 0.85rem;">
                     <i class="bi bi-search"></i> Cari
                 </button>
                 @if(request()->anyFilled(['search', 'kategori']))
-                    <a href="{{ route('admin.alat.index') }}" class="btn btn-sm btn-outline-secondary" title="Reset">
+                    <a href="{{ route('admin.alat.index') }}" class="btn btn-outline-secondary d-flex align-items-center justify-content-center" style="height: 38px; width: 38px; border-radius: 0.5rem; flex-shrink: 0;" title="Reset Pencarian">
                         <i class="bi bi-arrow-counterclockwise"></i>
                     </a>
                 @endif
