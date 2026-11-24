@@ -19,7 +19,7 @@
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <!-- Custom STIKES Lab CSS (External & Browser-Cached) -->
-    <link rel="stylesheet" href="{{ asset('css/stikes-lab.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/stikes-lab.css') }}?v={{ file_exists(public_path('css/stikes-lab.css')) ? filemtime(public_path('css/stikes-lab.css')) : time() }}">
 
     <!-- Dynamic Theme Palette per Program Studi -->
     @php
@@ -41,8 +41,12 @@
             --primary-light: {{ $theme['primary_light'] }};
         }
         .navbar-custom {
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1030 !important;
             background: {{ $theme['navbar_bg'] }} !important;
             border-bottom: 1px solid {{ $theme['navbar_border'] }} !important;
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.25) !important;
         }
         .footer-custom {
             background: {{ $theme['navbar_bg'] }} !important;
