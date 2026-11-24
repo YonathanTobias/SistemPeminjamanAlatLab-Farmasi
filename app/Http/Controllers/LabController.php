@@ -325,6 +325,28 @@ class LabController extends Controller
     {
         $query = PeminjamanLab::with('details.alat');
 
+        // Daftar tahun transaksi yang tersedia secara dinamis
+        $availableYears = PeminjamanLab::selectRaw('YEAR(tgl_pinjam) as tahun')
+            ->whereNotNull('tgl_pinjam')
+            ->distinct()
+            ->orderByDesc('tahun')
+            ->pluck('tahun')
+            ->filter()
+            ->toArray();
+        $currentYear = (int) date('Y');
+        if (!in_array($currentYear, $availableYears)) {
+            array_unshift($availableYears, $currentYear);
+        }
+
+        // Tentukan tahun terpilih:
+        // Jika pencarian kata kunci dilakukan tanpa memilih tahun spesifik, cari di semua tahun ('all').
+        // Jika tidak, default ke tahun berjalan (misal: 2026).
+        $selectedYear = $request->input('tahun', ($request->filled('search') ? 'all' : (string) $currentYear));
+
+        if ($selectedYear !== 'all' && is_numeric($selectedYear)) {
+            $query->whereYear('tgl_pinjam', $selectedYear);
+        }
+
         // Filter Tanggal
         if ($request->filled('tgl_mulai')) {
             $query->whereDate('tgl_pinjam', '>=', $request->tgl_mulai);
@@ -349,12 +371,18 @@ class LabController extends Controller
 
         $peminjaman = $query->latest()->paginate(10)->withQueryString();
 
+        // Ringkasan KPI Stats sesuai tahun yang dipilih
+        $statsQuery = PeminjamanLab::query();
+        if ($selectedYear !== 'all' && is_numeric($selectedYear)) {
+            $statsQuery->whereYear('tgl_pinjam', $selectedYear);
+        }
+
         $stats = [
-            'total' => PeminjamanLab::count(),
-            'menunggu' => PeminjamanLab::where('status', 'Menunggu')->count(),
-            'disetujui' => PeminjamanLab::where('status', 'Disetujui')->count(),
-            'dikembalikan' => PeminjamanLab::where('status', 'Dikembalikan')->count(),
-            'ditolak' => PeminjamanLab::where('status', 'Ditolak')->count(),
+            'total' => (clone $statsQuery)->count(),
+            'menunggu' => (clone $statsQuery)->where('status', 'Menunggu')->count(),
+            'disetujui' => (clone $statsQuery)->where('status', 'Disetujui')->count(),
+            'dikembalikan' => (clone $statsQuery)->where('status', 'Dikembalikan')->count(),
+            'ditolak' => (clone $statsQuery)->where('status', 'Ditolak')->count(),
         ];
 
         // 1. Data Analitik Chart: Tren 7 Hari Terakhir
@@ -367,9 +395,14 @@ class LabController extends Controller
         }
 
         // 2. Top 5 Alat Paling Sering Dipinjam
-        $topAlat = PeminjamanLabDetail::select('alat_lab_id', DB::raw('sum(jumlah_pinjam) as total_dipinjam'))
-            ->with('alat')
-            ->groupBy('alat_lab_id')
+        $topAlatQuery = PeminjamanLabDetail::select('alat_lab_id', DB::raw('sum(jumlah_pinjam) as total_dipinjam'))
+            ->with('alat');
+        if ($selectedYear !== 'all' && is_numeric($selectedYear)) {
+            $topAlatQuery->whereHas('peminjaman', function($q) use ($selectedYear) {
+                $q->whereYear('tgl_pinjam', $selectedYear);
+            });
+        }
+        $topAlat = $topAlatQuery->groupBy('alat_lab_id')
             ->orderByDesc('total_dipinjam')
             ->limit(5)
             ->get();
@@ -380,7 +413,7 @@ class LabController extends Controller
             ->whereDate('tgl_kembali_rencana', '<', Carbon::today())
             ->get();
 
-        return view('admin.peminjaman.index', compact('peminjaman', 'stats', 'weeklyLabels', 'weeklyData', 'topAlat', 'overdueLoans'));
+        return view('admin.peminjaman.index', compact('peminjaman', 'stats', 'weeklyLabels', 'weeklyData', 'topAlat', 'overdueLoans', 'availableYears', 'selectedYear'));
     }
 
     // Admin: Halaman Kelola Inventaris Alat Lab
@@ -417,8 +450,28 @@ class LabController extends Controller
     {
         $pengaturan = PengaturanLab::getPengaturan();
 
+        // Daftar tahun transaksi alat lab dinamis
+        $availableYears = PeminjamanLab::selectRaw('YEAR(tgl_pinjam) as tahun')
+            ->whereNotNull('tgl_pinjam')
+            ->distinct()
+            ->orderByDesc('tahun')
+            ->pluck('tahun')
+            ->filter()
+            ->toArray();
+        $currentYear = (int) date('Y');
+        if (!in_array($currentYear, $availableYears)) {
+            array_unshift($availableYears, $currentYear);
+        }
+
         // 1. Data Peminjaman Alat Lab
         $queryPinjam = PeminjamanLab::with('details.alat');
+
+        // Filter Tahun Peminjaman Alat (default: tahun berjalan)
+        $selectedYear = $request->input('tahun', (string) $currentYear);
+        if ($selectedYear !== 'all' && $selectedYear !== '' && is_numeric($selectedYear)) {
+            $queryPinjam->whereYear('tgl_pinjam', $selectedYear);
+        }
+
         if ($request->filled('tgl_mulai')) {
             $queryPinjam->whereDate('tgl_pinjam', '>=', $request->tgl_mulai);
         }
@@ -430,11 +483,15 @@ class LabController extends Controller
         }
         $peminjaman = $queryPinjam->latest()->paginate(10, ['*'], 'page_peminjaman')->withQueryString();
 
+        $statsPinjamQuery = PeminjamanLab::query();
+        if ($selectedYear !== 'all' && $selectedYear !== '' && is_numeric($selectedYear)) {
+            $statsPinjamQuery->whereYear('tgl_pinjam', $selectedYear);
+        }
         $stats = [
-            'total'        => PeminjamanLab::count(),
-            'menunggu'     => PeminjamanLab::where('status', 'Menunggu')->count(),
-            'disetujui'    => PeminjamanLab::where('status', 'Disetujui')->count(),
-            'dikembalikan' => PeminjamanLab::where('status', 'Dikembalikan')->count(),
+            'total'        => (clone $statsPinjamQuery)->count(),
+            'menunggu'     => (clone $statsPinjamQuery)->where('status', 'Menunggu')->count(),
+            'disetujui'    => (clone $statsPinjamQuery)->where('status', 'Disetujui')->count(),
+            'dikembalikan' => (clone $statsPinjamQuery)->where('status', 'Dikembalikan')->count(),
         ];
 
         // 2. Data KIR & Alat Lab
@@ -460,7 +517,23 @@ class LabController extends Controller
         ];
 
         // 3. Data Peminjaman Ruangan
+        $availableYearsRuangan = PeminjamanRuangan::selectRaw('YEAR(tgl_pinjam) as tahun')
+            ->whereNotNull('tgl_pinjam')
+            ->distinct()
+            ->orderByDesc('tahun')
+            ->pluck('tahun')
+            ->filter()
+            ->toArray();
+        if (!in_array($currentYear, $availableYearsRuangan)) {
+            array_unshift($availableYearsRuangan, $currentYear);
+        }
+        $selectedYearRuangan = $request->input('tahun_ruangan', (string) $currentYear);
+
         $queryRuangan = PeminjamanRuangan::with('ruangan');
+        if ($selectedYearRuangan !== 'all' && $selectedYearRuangan !== '' && is_numeric($selectedYearRuangan)) {
+            $queryRuangan->whereYear('tgl_pinjam', $selectedYearRuangan);
+        }
+
         if ($request->filled('tgl_mulai_ruangan')) {
             $queryRuangan->whereDate('tgl_pinjam', '>=', $request->tgl_mulai_ruangan);
         }
@@ -482,7 +555,11 @@ class LabController extends Controller
             'statsKir',
             'pengaturan',
             'peminjamanRuangans',
-            'ruangans'
+            'ruangans',
+            'availableYears',
+            'selectedYear',
+            'availableYearsRuangan',
+            'selectedYearRuangan'
         ));
     }
 
@@ -560,6 +637,9 @@ class LabController extends Controller
     {
         $query = PeminjamanLab::with('details.alat');
 
+        if ($request->filled('tahun') && $request->tahun !== 'all' && is_numeric($request->tahun)) {
+            $query->whereYear('tgl_pinjam', $request->tahun);
+        }
         if ($request->filled('tgl_mulai')) {
             $query->whereDate('tgl_pinjam', '>=', $request->tgl_mulai);
         }
@@ -572,7 +652,8 @@ class LabController extends Controller
 
         $peminjaman = $query->latest()->get();
 
-        $filename = 'Rekap_Peminjaman_Lab_' . date('Ymd_His') . '.csv';
+        $suffixTahun = ($request->filled('tahun') && $request->tahun !== 'all') ? 'Tahun_' . $request->tahun . '_' : '';
+        $filename = 'Rekap_Peminjaman_Lab_' . $suffixTahun . date('Ymd_His') . '.csv';
         $headers = [
             "Content-type"        => "text/csv; charset=UTF-8",
             "Content-Disposition" => "attachment; filename={$filename}",
@@ -636,6 +717,10 @@ class LabController extends Controller
     {
         $query = PeminjamanLab::with('details.alat');
 
+        $tahun = $request->input('tahun', null);
+        if ($request->filled('tahun') && $request->tahun !== 'all' && is_numeric($request->tahun)) {
+            $query->whereYear('tgl_pinjam', $request->tahun);
+        }
         if ($request->filled('tgl_mulai')) {
             $query->whereDate('tgl_pinjam', '>=', $request->tgl_mulai);
         }
@@ -649,8 +734,9 @@ class LabController extends Controller
         $peminjaman = $query->latest()->get();
         $pengaturan = PengaturanLab::getPengaturan();
 
-        $pdf = Pdf::loadView('admin.laporan.pdf', compact('peminjaman', 'pengaturan'));
-        return $pdf->stream('laporan-peminjaman-lab.pdf');
+        $pdf = Pdf::loadView('admin.laporan.pdf', compact('peminjaman', 'pengaturan', 'tahun'));
+        $fileSuffix = ($tahun && $tahun !== 'all') ? '-' . $tahun : '';
+        return $pdf->stream('laporan-peminjaman-lab' . $fileSuffix . '.pdf');
     }
 
     // Admin: Halaman Pengaturan Sistem & Profil Lab Prodi

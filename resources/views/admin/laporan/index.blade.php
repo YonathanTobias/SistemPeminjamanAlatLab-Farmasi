@@ -333,6 +333,19 @@
             <div class="card-body p-4">
                 <form action="{{ route('admin.laporan.index') }}" method="GET" class="row g-3 align-items-end">
                     <input type="hidden" name="tab" value="peminjaman">
+                    <div class="col-md-2">
+                        <label class="form-label small text-muted mb-1">
+                            <i class="bi bi-calendar-event text-primary"></i> Tahun Laporan
+                        </label>
+                        <select name="tahun" class="form-select form-select-sm" onchange="this.form.submit()">
+                            @foreach($availableYears as $yr)
+                                <option value="{{ $yr }}" {{ (string)$selectedYear === (string)$yr ? 'selected' : '' }}>
+                                    Tahun {{ $yr }} {{ $yr == date('Y') ? '(Tahun Ini)' : '' }}
+                                </option>
+                            @endforeach
+                            <option value="all" {{ (string)$selectedYear === 'all' ? 'selected' : '' }}>-- Semua Tahun --</option>
+                        </select>
+                    </div>
                     <div class="col-md-3">
                         <label class="form-label small text-muted mb-1">
                             <i class="bi bi-calendar3 text-primary"></i> Periode Mulai Pinjam
@@ -345,7 +358,7 @@
                         </label>
                         <input type="date" name="tgl_selesai" class="form-control form-control-sm" value="{{ request('tgl_selesai') }}">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label class="form-label small text-muted mb-1">
                             <i class="bi bi-funnel text-primary"></i> Filter Status
                         </label>
@@ -357,12 +370,12 @@
                             <option value="Ditolak" {{ request('status') == 'Ditolak' ? 'selected' : '' }}>❌ Ditolak</option>
                         </select>
                     </div>
-                    <div class="col-md-3 d-flex gap-2">
+                    <div class="col-md-2 d-flex gap-2">
                         <button type="submit" class="btn btn-sm btn-primary flex-grow-1">
-                            <i class="bi bi-filter"></i> Filter Data
+                            <i class="bi bi-filter"></i> Filter
                         </button>
-                        @if(request()->hasAny(['tgl_mulai', 'tgl_selesai', 'status']))
-                            <a href="{{ route('admin.laporan.index') }}?tab=peminjaman" class="btn btn-sm btn-outline-secondary" title="Reset Filter">
+                        @if(request()->hasAny(['tgl_mulai', 'tgl_selesai', 'status']) || request('tahun') == 'all' || (request()->has('tahun') && request('tahun') != date('Y')))
+                            <a href="{{ route('admin.laporan.index') }}?tab=peminjaman" class="btn btn-sm btn-outline-secondary" title="Reset Filter (Kembali ke Tahun Ini)">
                                 <i class="bi bi-arrow-counterclockwise"></i>
                             </a>
                         @endif
@@ -377,6 +390,15 @@
                 <div class="d-flex align-items-center gap-2">
                     <i class="bi bi-receipt text-primary fs-5"></i>
                     <h6 class="fw-bold mb-0 text-dark">Daftar Transaksi Peminjaman Alat Praktikum</h6>
+                    @if($selectedYear !== 'all')
+                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle small ms-1">
+                            <i class="bi bi-calendar-check"></i> Tahun {{ $selectedYear }}
+                        </span>
+                    @else
+                        <span class="badge bg-secondary-subtle text-secondary border small ms-1">
+                            <i class="bi bi-archive"></i> Semua Tahun
+                        </span>
+                    @endif
                 </div>
                 <div class="d-flex gap-2">
                     <a href="{{ route('admin.laporan.csv', request()->query()) }}" class="btn btn-success btn-sm px-3 shadow-xs">
@@ -476,11 +498,64 @@
     <!-- TAB 3: REKAP PEMINJAMAN RUANGAN                                           -->
     <!-- ========================================================================= -->
     <div class="tab-pane fade {{ request('tab') == 'ruangan' ? 'show active' : '' }}" id="tab-ruangan" role="tabpanel">
+        <!-- Filter Card Ruangan -->
+        <div class="card border-0 rounded-4 shadow-sm mb-4 no-print">
+            <div class="card-body p-4">
+                <form action="{{ route('admin.laporan.index') }}" method="GET" class="row g-3 align-items-end">
+                    <input type="hidden" name="tab" value="ruangan">
+                    <div class="col-md-3">
+                        <label class="form-label small text-muted mb-1">
+                            <i class="bi bi-calendar-event text-primary"></i> Tahun Laporan Ruangan
+                        </label>
+                        <select name="tahun_ruangan" class="form-select form-select-sm" onchange="this.form.submit()">
+                            @foreach($availableYearsRuangan as $yr)
+                                <option value="{{ $yr }}" {{ (string)$selectedYearRuangan === (string)$yr ? 'selected' : '' }}>
+                                    Tahun {{ $yr }} {{ $yr == date('Y') ? '(Tahun Ini)' : '' }}
+                                </option>
+                            @endforeach
+                            <option value="all" {{ (string)$selectedYearRuangan === 'all' ? 'selected' : '' }}>-- Semua Tahun --</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small text-muted mb-1">
+                            <i class="bi bi-calendar3 text-primary"></i> Periode Mulai Pinjam
+                        </label>
+                        <input type="date" name="tgl_mulai_ruangan" class="form-control form-control-sm" value="{{ request('tgl_mulai_ruangan') }}">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small text-muted mb-1">
+                            <i class="bi bi-calendar-check text-primary"></i> Periode Selesai Pinjam
+                        </label>
+                        <input type="date" name="tgl_selesai_ruangan" class="form-control form-control-sm" value="{{ request('tgl_selesai_ruangan') }}">
+                    </div>
+                    <div class="col-md-3 d-flex gap-2">
+                        <button type="submit" class="btn btn-sm btn-primary flex-grow-1">
+                            <i class="bi bi-filter"></i> Filter Data
+                        </button>
+                        @if(request()->hasAny(['tgl_mulai_ruangan', 'tgl_selesai_ruangan', 'status_ruangan']) || request('tahun_ruangan') == 'all' || (request()->has('tahun_ruangan') && request('tahun_ruangan') != date('Y')))
+                            <a href="{{ route('admin.laporan.index') }}?tab=ruangan" class="btn btn-sm btn-outline-secondary" title="Reset Filter (Kembali ke Tahun Ini)">
+                                <i class="bi bi-arrow-counterclockwise"></i>
+                            </a>
+                        @endif
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <div class="card border-0 rounded-4 shadow-sm overflow-hidden mb-4 no-print">
             <div class="card-header bg-white border-bottom py-3 px-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
                 <div class="d-flex align-items-center gap-2">
                     <i class="bi bi-door-open text-primary fs-5"></i>
                     <h6 class="fw-bold mb-0 text-dark">Rekapitulasi Peminjaman / Booking Ruang Laboratorium</h6>
+                    @if($selectedYearRuangan !== 'all')
+                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle small ms-1">
+                            <i class="bi bi-calendar-check"></i> Tahun {{ $selectedYearRuangan }}
+                        </span>
+                    @else
+                        <span class="badge bg-secondary-subtle text-secondary border small ms-1">
+                            <i class="bi bi-archive"></i> Semua Tahun
+                        </span>
+                    @endif
                 </div>
                 <span class="badge badge-soft-secondary font-monospace">{{ $peminjamanRuangans->total() }} Transaksi Ruangan</span>
             </div>

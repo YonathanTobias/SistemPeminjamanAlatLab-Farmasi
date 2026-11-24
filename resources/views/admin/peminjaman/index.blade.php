@@ -131,6 +131,17 @@
 <div class="card border-0 rounded-4 shadow-sm mb-4">
     <div class="card-body p-3 p-md-4">
         <form action="{{ route('admin.peminjaman.index') }}" method="GET" class="row g-2 align-items-end">
+            <div class="col-md-2">
+                <label class="form-label small text-muted mb-1"><i class="bi bi-calendar-event text-primary"></i> Tahun Transaksi</label>
+                <select name="tahun" class="form-select form-select-sm" onchange="this.form.submit()">
+                    @foreach($availableYears as $yr)
+                        <option value="{{ $yr }}" {{ (string)$selectedYear === (string)$yr ? 'selected' : '' }}>
+                            {{ $yr }} {{ $yr == date('Y') ? '(Tahun Ini)' : '' }}
+                        </option>
+                    @endforeach
+                    <option value="all" {{ (string)$selectedYear === 'all' ? 'selected' : '' }}>-- Semua Tahun (Arsip) --</option>
+                </select>
+            </div>
             <div class="col-md-3">
                 <label class="form-label small text-muted mb-1">Cari Kode / Peminjam</label>
                 <div class="input-group input-group-sm">
@@ -138,12 +149,12 @@
                     <input type="text" name="search" class="form-control form-control-sm" placeholder="Kode Pinjam, Nama, NIM" value="{{ request('search') }}">
                 </div>
             </div>
-            <div class="col-md-3">
-                <label class="form-label small text-muted mb-1">Tanggal Mulai Pinjam</label>
+            <div class="col-md-2">
+                <label class="form-label small text-muted mb-1">Tgl Mulai Pinjam</label>
                 <input type="date" name="tgl_mulai" class="form-control form-control-sm" value="{{ request('tgl_mulai') }}">
             </div>
-            <div class="col-md-3">
-                <label class="form-label small text-muted mb-1">Tanggal Selesai</label>
+            <div class="col-md-2">
+                <label class="form-label small text-muted mb-1">Tgl Selesai</label>
                 <input type="date" name="tgl_selesai" class="form-control form-control-sm" value="{{ request('tgl_selesai') }}">
             </div>
             <div class="col-md-2">
@@ -160,8 +171,8 @@
                 <button type="submit" class="btn btn-sm btn-primary w-100" title="Terapkan Filter">
                     <i class="bi bi-funnel-fill"></i>
                 </button>
-                @if(request()->anyFilled(['search', 'tgl_mulai', 'tgl_selesai', 'status']))
-                    <a href="{{ route('admin.peminjaman.index') }}" class="btn btn-sm btn-outline-secondary" title="Reset Filter">
+                @if(request()->anyFilled(['search', 'tgl_mulai', 'tgl_selesai', 'status']) || request('tahun') == 'all' || (request()->has('tahun') && request('tahun') != date('Y')))
+                    <a href="{{ route('admin.peminjaman.index') }}" class="btn btn-sm btn-outline-secondary" title="Reset Filter (Kembali ke Tahun Ini)">
                         <i class="bi bi-arrow-counterclockwise"></i>
                     </a>
                 @endif
@@ -176,6 +187,15 @@
         <div class="d-flex align-items-center gap-2">
             <i class="bi bi-clipboard2-check text-primary fs-5"></i>
             <span>Daftar Transaksi Peminjaman Praktikum</span>
+            @if($selectedYear !== 'all')
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle small ms-1">
+                    <i class="bi bi-calendar-check"></i> Tahun {{ $selectedYear }}
+                </span>
+            @else
+                <span class="badge bg-secondary-subtle text-secondary border small ms-1">
+                    <i class="bi bi-archive"></i> Semua Tahun (Arsip)
+                </span>
+            @endif
         </div>
         <span class="badge badge-soft-secondary">{{ $peminjaman->total() }} Transaksi</span>
     </div>

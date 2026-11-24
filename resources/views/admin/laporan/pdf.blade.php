@@ -133,7 +133,14 @@
     <!-- Judul Laporan -->
     <div class="doc-title">
         <h3>Laporan Rekapitulasi Transaksi Peminjaman Alat Praktikum</h3>
-        <p>Dicetak pada: {{ date('d-m-Y H:i') }} WIB &bull; Total Transaksi: {{ $peminjaman->count() }} Data</p>
+        <p>
+            @if(!empty($tahun) && $tahun !== 'all')
+                <strong>Periode: Tahun {{ $tahun }}</strong> &bull;
+            @else
+                <strong>Periode: Semua Tahun (Rekap Lengkap)</strong> &bull;
+            @endif
+            Dicetak pada: {{ date('d-m-Y H:i') }} WIB &bull; Total Transaksi: {{ $peminjaman->count() }} Data
+        </p>
     </div>
 
     <!-- Tabel Data -->
