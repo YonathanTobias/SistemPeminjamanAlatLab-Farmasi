@@ -401,16 +401,18 @@
                             <option value="Ditolak" {{ request('status') == 'Ditolak' ? 'selected' : '' }}>❌ Ditolak</option>
                         </select>
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 d-flex gap-2">
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                         <label class="filter-label d-none d-md-flex">&nbsp;</label>
-                        <button type="submit" class="btn btn-primary filter-control flex-grow-1 shadow-xs">
-                            <i class="bi bi-filter"></i> Filter
-                        </button>
-                        @if(request()->hasAny(['tgl_mulai', 'tgl_selesai', 'status']) || request('tahun') == 'all' || (request()->has('tahun') && request('tahun') != date('Y')))
-                            <a href="{{ route('admin.laporan.index') }}?tab=peminjaman" class="btn btn-outline-secondary filter-control px-3 d-flex align-items-center justify-content-center" title="Reset Filter (Kembali ke Tahun Ini)">
-                                <i class="bi bi-arrow-counterclockwise"></i>
-                            </a>
-                        @endif
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary filter-control flex-grow-1 shadow-xs">
+                                <i class="bi bi-filter"></i> Filter
+                            </button>
+                            @if(request()->hasAny(['tgl_mulai', 'tgl_selesai', 'status']) || request('tahun') == 'all' || (request()->has('tahun') && request('tahun') != date('Y')))
+                                <a href="{{ route('admin.laporan.index') }}?tab=peminjaman" class="btn btn-outline-secondary filter-control px-3 d-flex align-items-center justify-content-center" title="Reset Filter (Kembali ke Tahun Ini)">
+                                    <i class="bi bi-arrow-counterclockwise"></i>
+                                </a>
+                            @endif
+                        </div>
                     </div>
                 </form>
             </div>
@@ -560,16 +562,18 @@
                         </label>
                         <input type="date" name="tgl_selesai_ruangan" class="form-control filter-control" value="{{ request('tgl_selesai_ruangan') }}">
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 d-flex gap-2">
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                         <label class="filter-label d-none d-md-flex">&nbsp;</label>
-                        <button type="submit" class="btn btn-primary filter-control flex-grow-1 shadow-xs">
-                            <i class="bi bi-filter"></i> Filter
-                        </button>
-                        @if(request()->hasAny(['tgl_mulai_ruangan', 'tgl_selesai_ruangan', 'status_ruangan']) || request('tahun_ruangan') == 'all' || (request()->has('tahun_ruangan') && request('tahun_ruangan') != date('Y')))
-                            <a href="{{ route('admin.laporan.index') }}?tab=ruangan" class="btn btn-outline-secondary filter-control px-3 d-flex align-items-center justify-content-center" title="Reset Filter (Kembali ke Tahun Ini)">
-                                <i class="bi bi-arrow-counterclockwise"></i>
-                            </a>
-                        @endif
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary filter-control flex-grow-1 shadow-xs">
+                                <i class="bi bi-filter"></i> Filter
+                            </button>
+                            @if(request()->hasAny(['tgl_mulai_ruangan', 'tgl_selesai_ruangan', 'status_ruangan']) || request('tahun_ruangan') == 'all' || (request()->has('tahun_ruangan') && request('tahun_ruangan') != date('Y')))
+                                <a href="{{ route('admin.laporan.index') }}?tab=ruangan" class="btn btn-outline-secondary filter-control px-3 d-flex align-items-center justify-content-center" title="Reset Filter (Kembali ke Tahun Ini)">
+                                    <i class="bi bi-arrow-counterclockwise"></i>
+                                </a>
+                            @endif
+                        </div>
                     </div>
                 </form>
             </div>
