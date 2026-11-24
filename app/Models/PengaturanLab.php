@@ -29,8 +29,8 @@ class PengaturanLab extends Model
                 'nip_kabag_sarpras' => 'NIP. 2021.08.045',
                 'kota_dokumen'      => 'Malang',
                 'tanggal_dokumen'   => date('Y-m-d'),
-                'alamat_institusi'  => 'Jl. Yulius Usman No.62, Kasin, Kec. Klojen, Kota Malang, Jawa Timur 65117',
-                'kontak_lab'        => '(0341) 369003',
+                'alamat_institusi'  => 'Jl. Yulius Usman No. 62, Kasin, Kec. Klojen, Kota Malang, Jawa Timur 65117',
+                'kontak_lab'        => 'Telp./Fax. (0341) 369003 / 369004 | Email: info@stikespantiwaluya.ac.id | Web: www.stikespantiwaluya.ac.id',
                 'logo_path'         => 'images/logo-stikes.png',
             ]
         );
