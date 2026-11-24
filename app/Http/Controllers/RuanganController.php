@@ -7,6 +7,7 @@ use App\Models\PeminjamanRuangan;
 use App\Models\PengaturanLab;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class RuanganController extends Controller
 {
@@ -141,7 +142,27 @@ class RuanganController extends Controller
     // Admin: Kelola Booking Ruangan & Update Status
     public function adminPeminjamanRuangan(Request $request)
     {
+        // 1. Ambil daftar tahun unik dari transaksi peminjaman ruangan
+        $availableYears = PeminjamanRuangan::selectRaw('YEAR(tgl_pinjam) as year')
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->pluck('year')
+            ->toArray();
+        if (empty($availableYears)) {
+            $availableYears = [date('Y')];
+        }
+        if (!in_array(date('Y'), $availableYears)) {
+            array_unshift($availableYears, date('Y'));
+        }
+
+        $selectedYear = $request->query('tahun', date('Y'));
+
         $query = PeminjamanRuangan::with('ruangan');
+
+        // Filter Tahun Transaksi (default tahun berjalan, kecuali memilih 'all')
+        if ($selectedYear !== 'all' && is_numeric($selectedYear)) {
+            $query->whereYear('tgl_pinjam', $selectedYear);
+        }
 
         if ($request->filled('status')) {
             $query->where('status', $request->status);
@@ -155,10 +176,55 @@ class RuanganController extends Controller
             });
         }
 
-        $peminjamans = $query->latest()->paginate(15)->withQueryString();
-        $pengaturan = PengaturanLab::first();
+        $peminjamans = $query->latest('tgl_pinjam')->latest('jam_mulai')->paginate(15)->withQueryString();
+        $pengaturan = PengaturanLab::getPengaturan();
 
-        return view('admin.ruangan.peminjaman', compact('peminjamans', 'pengaturan'));
+        return view('admin.ruangan.peminjaman', compact('peminjamans', 'pengaturan', 'availableYears', 'selectedYear'));
+    }
+
+    // Admin: Cetak Laporan PDF Peminjaman Ruangan
+    public function cetakLaporanPdf(Request $request)
+    {
+        $query = PeminjamanRuangan::with('ruangan');
+
+        $tahun = $request->input('tahun', $request->input('tahun_ruangan', null));
+        if ($tahun && $tahun !== 'all' && is_numeric($tahun)) {
+            $query->whereYear('tgl_pinjam', $tahun);
+        }
+
+        $tglMulai = $request->input('tgl_mulai', $request->input('tgl_mulai_ruangan', null));
+        if ($tglMulai) {
+            $query->whereDate('tgl_pinjam', '>=', $tglMulai);
+        }
+
+        $tglSelesai = $request->input('tgl_selesai', $request->input('tgl_selesai_ruangan', null));
+        if ($tglSelesai) {
+            $query->whereDate('tgl_pinjam', '<=', $tglSelesai);
+        }
+
+        $status = $request->input('status', $request->input('status_ruangan', null));
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('kode_transaksi', 'like', '%' . $request->search . '%')
+                  ->orWhere('nama_peminjam', 'like', '%' . $request->search . '%')
+                  ->orWhere('nim_nip', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        if ($request->filled('ruangan_id')) {
+            $query->where('ruangan_id', $request->ruangan_id);
+        }
+
+        $peminjamans = $query->latest('tgl_pinjam')->latest('jam_mulai')->get();
+        $pengaturan = PengaturanLab::getPengaturan();
+
+        $pdf = Pdf::loadView('admin.laporan.pdf_ruangan', compact('peminjamans', 'pengaturan', 'tahun'));
+        $fileSuffix = ($tahun && $tahun !== 'all') ? '-' . $tahun : '';
+        return $pdf->stream('laporan-peminjaman-ruangan' . $fileSuffix . '.pdf');
     }
 
     public function updateStatusPeminjaman(Request $request, $id)

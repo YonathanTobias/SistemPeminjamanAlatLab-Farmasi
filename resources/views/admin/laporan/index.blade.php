@@ -594,7 +594,12 @@
                         </span>
                     @endif
                 </div>
-                <span class="badge badge-soft-secondary font-monospace">{{ $peminjamanRuangans->total() }} Transaksi Ruangan</span>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge badge-soft-secondary font-monospace">{{ $peminjamanRuangans->total() }} Transaksi Ruangan</span>
+                    <a href="{{ route('admin.laporan.ruangan.pdf', request()->query()) }}" target="_blank" class="btn btn-danger btn-sm px-3 shadow-xs">
+                        <i class="bi bi-file-earmark-pdf-fill me-1"></i> Cetak PDF
+                    </a>
+                </div>
             </div>
 
             <div class="table-responsive">

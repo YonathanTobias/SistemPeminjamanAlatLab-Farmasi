@@ -7,9 +7,14 @@
             <h3 class="fw-bold mb-1"><i class="bi bi-door-open text-primary me-2"></i> Kelola Peminjaman Ruangan Lab</h3>
             <p class="text-muted small mb-0">Verifikasi pengajuan penggunaan ruangan laboratorium dari mahasiswa dan dosen.</p>
         </div>
-        <a href="{{ route('admin.ruangan.index') }}" class="btn btn-outline-primary rounded-pill px-4 btn-sm">
-            <i class="bi bi-building me-1"></i> Data Master Ruangan
-        </a>
+        <div class="d-flex gap-2 flex-wrap">
+            <a href="{{ route('admin.ruangan.peminjaman.pdf', request()->query()) }}" target="_blank" class="btn btn-danger shadow-sm">
+                <i class="bi bi-file-earmark-pdf-fill me-1"></i> Cetak Laporan PDF
+            </a>
+            <a href="{{ route('admin.ruangan.index') }}" class="btn btn-outline-primary rounded-pill px-4 btn-sm d-inline-flex align-items-center">
+                <i class="bi bi-building me-1.5"></i> Data Master Ruangan
+            </a>
+        </div>
     </div>
 
     <!-- Switch/Tab Pill Bersebelahan Layanan Peminjaman Admin -->
@@ -37,24 +42,34 @@
     <div class="card border-0 shadow-sm rounded-4 mb-4">
         <div class="card-body p-3">
             <form action="{{ route('admin.ruangan.peminjaman') }}" method="GET" class="row g-2 align-items-center">
-                <div class="col-md-5">
-                    <input type="text" name="search" class="form-control rounded-pill" placeholder="Cari Kode Transaksi, Nama, atau NIM/NIP..." value="{{ request('search') }}">
-                </div>
-                <div class="col-md-4">
-                    <select name="status" class="form-select rounded-pill">
-                        <option value="">-- Semua Status --</option>
-                        <option value="Menunggu" {{ request('status') == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
-                        <option value="Disetujui" {{ request('status') == 'Disetujui' ? 'selected' : '' }}>Disetujui</option>
-                        <option value="Ditolak" {{ request('status') == 'Ditolak' ? 'selected' : '' }}>Ditolak</option>
-                        <option value="Selesai" {{ request('status') == 'Selesai' ? 'selected' : '' }}>Selesai</option>
+                <div class="col-lg-3 col-md-4">
+                    <select name="tahun" class="form-select rounded-pill" onchange="this.form.submit()">
+                        @foreach($availableYears as $yr)
+                            <option value="{{ $yr }}" {{ (string)$selectedYear === (string)$yr ? 'selected' : '' }}>
+                                Tahun {{ $yr }} {{ $yr == date('Y') ? '(Tahun Ini)' : '' }}
+                            </option>
+                        @endforeach
+                        <option value="all" {{ (string)$selectedYear === 'all' ? 'selected' : '' }}>-- Semua Tahun (Arsip) --</option>
                     </select>
                 </div>
-                <div class="col-md-3 d-flex gap-2">
-                    <button type="submit" class="btn btn-primary rounded-pill px-4 flex-grow-1">
+                <div class="col-lg-4 col-md-4">
+                    <input type="text" name="search" class="form-control rounded-pill" placeholder="Cari Kode Transaksi, Nama, atau NIM/NIP..." value="{{ request('search') }}">
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <select name="status" class="form-select rounded-pill">
+                        <option value="">-- Semua Status --</option>
+                        <option value="Menunggu" {{ request('status') == 'Menunggu' ? 'selected' : '' }}>⏳ Menunggu</option>
+                        <option value="Disetujui" {{ request('status') == 'Disetujui' ? 'selected' : '' }}>✅ Disetujui</option>
+                        <option value="Selesai" {{ request('status') == 'Selesai' ? 'selected' : '' }}>🔄 Selesai</option>
+                        <option value="Ditolak" {{ request('status') == 'Ditolak' ? 'selected' : '' }}>❌ Ditolak</option>
+                    </select>
+                </div>
+                <div class="col-lg-2 col-md-12 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 flex-grow-1 shadow-xs">
                         <i class="bi bi-funnel me-1"></i> Filter
                     </button>
-                    @if (request('search') || request('status'))
-                        <a href="{{ route('admin.ruangan.peminjaman') }}" class="btn btn-light rounded-pill px-3">Reset</a>
+                    @if (request('search') || request('status') || request('tahun') == 'all' || (request()->has('tahun') && request('tahun') != date('Y')))
+                        <a href="{{ route('admin.ruangan.peminjaman') }}" class="btn btn-light border rounded-pill px-3" title="Reset Filter">Reset</a>
                     @endif
                 </div>
             </form>
@@ -63,6 +78,24 @@
 
     <!-- Tabel Data Peminjaman Ruangan -->
     <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="card-header bg-white border-bottom py-3 px-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-door-open text-primary fs-5"></i>
+                <h6 class="fw-bold mb-0 text-dark">Daftar Peminjaman Ruang Laboratorium</h6>
+                @if($selectedYear !== 'all')
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle small ms-1">
+                        <i class="bi bi-calendar-check"></i> Tahun {{ $selectedYear }}
+                    </span>
+                @else
+                    <span class="badge bg-secondary-subtle text-secondary border small ms-1">
+                        <i class="bi bi-archive"></i> Semua Tahun
+                    </span>
+                @endif
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-light text-secondary border font-monospace px-2.5 py-1.5 rounded-pill">{{ $peminjamans->total() }} Data Transaksi</span>
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-light">
