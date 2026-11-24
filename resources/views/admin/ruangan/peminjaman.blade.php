@@ -19,7 +19,7 @@
                 <i class="bi bi-box-seam"></i>
                 <span>Peminjaman Alat Lab</span>
             </a>
-            <a href="{{ route('admin.ruangan.peminjaman') }}" class="btn rounded-pill px-4 py-2 fw-bold d-flex align-items-center gap-2 btn-primary text-white shadow-xs">
+            <a href="{{ route('admin.ruangan.peminjaman') }}" class="btn rounded-pill px-4 py-2 fw-bold d-flex align-items-center gap-2 btn-primary shadow-xs">
                 <i class="bi bi-door-open-fill"></i>
                 <span>Peminjaman Ruangan Lab</span>
             </a>

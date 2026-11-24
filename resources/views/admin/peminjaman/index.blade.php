@@ -20,7 +20,7 @@
 <!-- Switch/Tab Pill Bersebelahan Layanan Peminjaman Admin -->
 <div class="d-flex mb-4">
     <div class="p-1 rounded-pill bg-white border shadow-sm d-inline-flex gap-1" style="max-width: 100%; overflow-x: auto;">
-        <a href="{{ route('admin.peminjaman.index') }}" class="btn rounded-pill px-4 py-2 fw-bold d-flex align-items-center gap-2 btn-primary text-white shadow-xs">
+        <a href="{{ route('admin.peminjaman.index') }}" class="btn rounded-pill px-4 py-2 fw-bold d-flex align-items-center gap-2 btn-primary shadow-xs">
             <i class="bi bi-box-seam"></i>
             <span>Peminjaman Alat Lab</span>
         </a>

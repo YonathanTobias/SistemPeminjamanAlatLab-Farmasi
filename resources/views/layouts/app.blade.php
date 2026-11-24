@@ -630,12 +630,12 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-white d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <div class="{{ (Auth::user()->role ?? '') === 'admin_it' ? 'bg-danger' : 'bg-primary' }} text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 0.85rem; font-weight: 700;">
+                                    <div class="{{ (Auth::user()->role ?? '') === 'admin_it' ? 'bg-danger text-white' : 'bg-primary text-dark' }} rounded-circle d-flex align-items-center justify-content-center shadow-xs" style="width: 32px; height: 32px; font-size: 0.85rem; font-weight: 700;">
                                         {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
                                     </div>
                                     <div class="d-flex align-items-center gap-2">
                                         <span class="fw-semibold">{{ Auth::user()->name }}</span>
-                                        <span class="badge {{ (Auth::user()->role ?? '') === 'admin_it' ? 'bg-danger' : 'bg-primary' }} rounded-pill" style="font-size: 0.65rem; font-weight: 700;">
+                                        <span class="badge {{ (Auth::user()->role ?? '') === 'admin_it' ? 'bg-danger text-white' : 'bg-primary text-dark' }} rounded-pill" style="font-size: 0.65rem; font-weight: 700;">
                                             {{ (Auth::user()->role ?? '') === 'admin_it' ? 'Admin IT' : 'Laboran' }}
                                         </span>
                                     </div>
@@ -645,7 +645,7 @@
                                         <div class="small text-muted">Masuk sebagai:</div>
                                         <div class="fw-bold text-dark">{{ Auth::user()->email }}</div>
                                         <div class="mt-1">
-                                            <span class="badge {{ (Auth::user()->role ?? '') === 'admin_it' ? 'bg-danger' : 'bg-primary' }}">
+                                            <span class="badge {{ (Auth::user()->role ?? '') === 'admin_it' ? 'bg-danger text-white' : 'bg-primary text-dark' }}">
                                                 {{ (Auth::user()->role ?? '') === 'admin_it' ? 'Hak Akses: Admin IT' : 'Hak Akses: Petugas Laboran' }}
                                             </span>
                                         </div>
